@@ -6,7 +6,6 @@ import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.DriversLicenseValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,14 +21,13 @@ public class DriversLicense extends Asset {
     @JsonProperty("license_number")
     private String number;
 
-    @Builder
     public DriversLicense(AssetId id, Long memberId, Long tenantId, Boolean active, String number){
         super(id, memberId, tenantId, active);
         this.number = number;
     }
 
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 

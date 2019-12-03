@@ -16,13 +16,8 @@ public class EmailTest extends BaseAssetTest<Email>{
 
     @Override
     public Email newAsset() {
-        return Email.builder()
-                .id(new AssetId(123L, AssetType.EMAIL))
-                .tenantId(123L)
-                .memberId(12345L)
-                .active(true)
-                .email("some.other@host.com")
-                .build();
+        return new Email(new AssetId(123L, AssetType.EMAIL), 12345L,
+                123L, true, "some.other@host.com");
     }
 
     @Override

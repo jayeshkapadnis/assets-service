@@ -2,18 +2,13 @@ package com.affinion.gce.model.asset;
 
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,11 +21,10 @@ public abstract class NameBased extends Asset{
     private String lastName;
 
     protected List<AssetAttributeEntity> nameAttributes(){
-        ArrayList<Optional<AssetAttributeEntity>> attributes = new ArrayList<>();
-        attributes.add(newAttribute("first_name", getFirstName()));
-        attributes.add(newAttribute("middle_name", getMiddleName()));
-        attributes.add(newAttribute("last_name", getLastName()));
-        return attributes.stream().filter(Optional::isPresent)
-                .map(Optional::get).collect(Collectors.toList());
-    };
+        return fromStream(Stream.of(
+                newAttribute("first_name", getFirstName()),
+                newAttribute("middle_name", getMiddleName()),
+                newAttribute("last_name", getLastName())
+        ));
+    }
 }

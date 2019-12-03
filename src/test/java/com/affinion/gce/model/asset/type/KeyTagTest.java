@@ -15,12 +15,8 @@ public class KeyTagTest extends BaseAssetTest<KeyTag>{
 
     @Override
     public KeyTag newAsset() {
-        return KeyTag.builder()
-                .id(new AssetId(null, AssetType.KEY_TAG))
-                .active(true)
-                .memberId(1234L)
-                .tenantId(2345L)
-                .serialNumber("1234455").build();
+        return new KeyTag(new AssetId(null, AssetType.KEY_TAG), 1234L,
+                2345L, true, "1234455");
     }
 
     @Override

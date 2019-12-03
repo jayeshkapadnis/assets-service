@@ -16,7 +16,7 @@ import java.util.List;
 @Validator(MemberNameValidator.class)
 public class Name extends NameBased {
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 

@@ -16,12 +16,8 @@ public class DriversLicenseTest extends BaseAssetTest<DriversLicense>{
 
     @Override
     public DriversLicense newAsset() {
-        return DriversLicense.builder()
-                .id(new AssetId(123L, AssetType.DRIVERS_LICENSE))
-                .tenantId(123L)
-                .memberId(12345L)
-                .active(true)
-                .number("567890").build();
+        return new DriversLicense(new AssetId(123L, AssetType.DRIVERS_LICENSE), 12345L,
+                123L, true, "567890");
     }
 
     @Override

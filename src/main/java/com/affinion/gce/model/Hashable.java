@@ -1,9 +1,14 @@
 package com.affinion.gce.model;
 
+import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.util.List;
+
 public interface Hashable {
-    public String hash();
+    public List<AssetAttributeEntity> hashAttributes();
 
     default String hashSequence(String value){
-        return null;
+        return DigestUtils.sha256Hex(value);
     }
 }

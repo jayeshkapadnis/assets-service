@@ -16,13 +16,8 @@ public class NationalIdentifierTest extends BaseAssetTest<NationalIdentifier>{
 
     @Override
     public NationalIdentifier newAsset() {
-        return NationalIdentifier.builder()
-                .id(new AssetId(null, AssetType.NATIONAL_ID))
-                .tenantId(123L)
-                .memberId(12345L)
-                .active(true)
-                .identifier("A67552900099")
-                .build();
+        return new NationalIdentifier(new AssetId(null, AssetType.NATIONAL_ID), 12345L,
+                123L, true, "A67552900099");
     }
 
     @Override

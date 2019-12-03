@@ -5,7 +5,6 @@ import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.DateOfBirthValidator;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,14 +20,13 @@ public class DateOfBirth extends Asset {
 
     private String dob;
 
-    @Builder
     public DateOfBirth(AssetId id, Long memberId, Long tenantId, Boolean active, String dob){
         super(id, memberId, tenantId, active);
         this.dob = dob;
     }
 
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 

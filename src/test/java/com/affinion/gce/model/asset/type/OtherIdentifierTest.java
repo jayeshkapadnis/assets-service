@@ -16,13 +16,8 @@ public class OtherIdentifierTest extends BaseAssetTest<OtherIdentifier>{
 
     @Override
     public OtherIdentifier newAsset() {
-        return OtherIdentifier.builder()
-                .id(new AssetId(null, AssetType.OTHER_ID))
-                .tenantId(123L)
-                .memberId(12345L)
-                .active(true)
-                .identifier("SOME_ONLINE_ID")
-                .build();
+        return new OtherIdentifier(new AssetId(null, AssetType.OTHER_ID), 12345L,
+                123L, true, "SOME_ONLINE_ID");
     }
 
     @Override

@@ -16,12 +16,7 @@ public class DateOfBirthTest extends BaseAssetTest<DateOfBirth>{
 
     @Override
     public DateOfBirth newAsset(){
-        return DateOfBirth.builder()
-                .dob("01022017")
-                .active(true)
-                .id(new AssetId(null, AssetType.DOB))
-                .memberId(1234L)
-                .tenantId(2345L).build();
+        return new DateOfBirth(new AssetId(null, AssetType.DOB), 1234L, 2345L, true, "01022017");
     }
 
     @Override

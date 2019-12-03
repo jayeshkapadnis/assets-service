@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -19,10 +22,10 @@ public abstract class BankAccount extends Asset{
 
     @Override
     public List<AssetAttributeEntity> attributes() {
-        return Arrays.asList(
-                new AssetAttributeEntity("account_number", getNumber()),
-                new AssetAttributeEntity("nick_name", getNickName()),
-                new AssetAttributeEntity("account_type", getType())
-        );
+        return fromStream(Stream.of(
+                newAttribute("bankaccount", getNumber()),
+                newAttribute("nick_name", getNickName()),
+                newAttribute("account_type", getType())
+        ));
     }
 }

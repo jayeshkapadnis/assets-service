@@ -5,6 +5,7 @@ import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.PhoneNumberValidator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.Collections;
@@ -15,6 +16,7 @@ import java.util.List;
 @Setter
 @Validator(PhoneNumberValidator.class)
 public class PhoneNumber extends Asset {
+    @JsonProperty("phone")
     private String number;
 
     public PhoneNumber(AssetId id, Long memberId, Long tenantId, Boolean active, String number){
@@ -23,7 +25,7 @@ public class PhoneNumber extends Asset {
     }
 
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 

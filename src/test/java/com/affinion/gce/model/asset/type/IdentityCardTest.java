@@ -16,13 +16,8 @@ public class IdentityCardTest extends BaseAssetTest<IdentityCard>{
 
     @Override
     public IdentityCard newAsset() {
-        return IdentityCard.builder()
-                .id(new AssetId(123L, AssetType.ID_CARD))
-                .tenantId(123L)
-                .memberId(12345L)
-                .active(true)
-                .identifier("PAN123NUMB")
-                .build();
+        return new IdentityCard(new AssetId(123L, AssetType.ID_CARD), 12345L,
+                123L, true, "PAN123NUMB");
     }
 
     @Override

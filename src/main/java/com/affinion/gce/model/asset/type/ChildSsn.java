@@ -25,7 +25,7 @@ public class ChildSsn extends NameBased {
     }
 
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 }

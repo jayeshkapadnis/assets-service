@@ -10,6 +10,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -34,5 +36,9 @@ public abstract class Asset implements Hashable {
     protected Optional<AssetAttributeEntity> newAttribute(String key, String value){
         return StringUtils.isEmpty(value) ? Optional.empty() :
                 Optional.of(new AssetAttributeEntity(key, value));
+    }
+
+    protected List<AssetAttributeEntity> fromStream(Stream<Optional<AssetAttributeEntity>> attributes){
+        return attributes.filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 }

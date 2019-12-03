@@ -6,7 +6,6 @@ import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.PassportValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,14 +21,13 @@ public class Passport extends Asset {
     @JsonProperty("passport_number")
     private String passport;
 
-    @Builder
     public Passport(AssetId id, Long memberId, Long tenantId, Boolean active, String passport){
         super(id, memberId, tenantId, active);
         this.passport = passport;
     }
 
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 

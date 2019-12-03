@@ -6,7 +6,6 @@ import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.OtherIdValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,14 +21,13 @@ public class OtherIdentifier extends Asset {
     @JsonProperty("online_id")
     private String identifier;
 
-    @Builder
     public OtherIdentifier(AssetId id, Long memberId, Long tenantId, Boolean active, String identifier){
         super(id, memberId, tenantId, active);
         this.identifier = identifier;
     }
 
     @Override
-    public String hash() {
+    public List<AssetAttributeEntity> hashAttributes() {
         return null;
     }
 

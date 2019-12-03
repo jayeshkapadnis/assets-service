@@ -12,7 +12,7 @@ public enum AssetType {
     POSTAL_ADDRESS("CSS_PostalAddress", "address_line_1", PostalAddress.class),
     NAME("CSS_MemberName", "first_name", Name.class),
     // Identity
-    PASSPORT("CSS_Passport", "passport", Passport.class),
+    PASSPORT("CSS_Passport", "passport_number", Passport.class),
     US_ADULT_SSN("CSS_AdultSSN_US", "ssn", AdultSsn.class),
     DRIVERS_LICENSE("CSS_DriversLicense", "driver_license", DriversLicense.class),
     NATIONAL_ID("CSS_NationalId", "nid", NationalIdentifier.class),
@@ -21,7 +21,7 @@ public enum AssetType {
     KEY_TAG("CSS_KeyTag", "serial_number", KeyTag.class),
     //Phone Numbers
     PHONE_NUMBER("CSS_PhoneNumber", "telephone", PhoneNumber.class),
-    MOBILE_NUMBER("CSS_PhoneNumberMobile", "phone", PhoneNumber.class),
+    MOBILE_NUMBER("CSS_PhoneNumberMobile", "MobileNumber", PhoneNumber.class),
     //Financial
     PAYMENT_CARD("CSS_PaymentCard", "payment_card", PaymentCard.class),
     PROTECTED_CARD("Asset_Helix_ProtectedCard", "protected_card", Asset.class),
