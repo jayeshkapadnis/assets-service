@@ -1,6 +1,10 @@
-package com.affinion.gce.model;
+package com.affinion.gce.model.asset.type;
 
+import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.model.asset.BankAccount;
+import com.affinion.gce.validator.USBankAccountValidator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +15,17 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class USBankAccount extends BankAccount{
+@Validator(USBankAccountValidator.class)
+public class USBankAccount extends BankAccount {
+    @JsonProperty("routing_num")
     private String routingNumber;
+    @JsonProperty("bank_code")
     private String bankCode;
+    @JsonProperty("branch_code")
     private String branchCode;
+    @JsonProperty("security_code")
     private String securityCode;
+    @JsonProperty("sort_code")
     private String sortCode;
     private String iban;
 

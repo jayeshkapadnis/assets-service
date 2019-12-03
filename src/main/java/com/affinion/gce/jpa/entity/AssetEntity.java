@@ -1,14 +1,17 @@
 package com.affinion.gce.jpa.entity;
 
-import com.affinion.gce.model.Asset;
-import com.affinion.gce.model.AssetType;
+import com.affinion.gce.model.asset.Asset;
+import com.affinion.gce.model.asset.AssetType;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-public abstract class AssetEntity {
+@Table("assets")
+public class AssetEntity implements Persistable<Long> {
     @Id
     private Long id;
 
@@ -19,20 +22,12 @@ public abstract class AssetEntity {
     private Long tenantId;
 
     @Column
-    @Enumerated(EnumType.STRING)
     private AssetType type;
 
     @Column
     private String token;
 
-    @ElementCollection(targetClass = AssetAttributeEntity.class)
-    @CollectionTable(name = "asset_attributes",
-            joinColumns = @JoinColumn(name = "asset_id"))
-    @AttributeOverrides({
-            @AttributeOverride(name="key", column=@Column(name = "asset_attribute_name")),
-            @AttributeOverride(name="value", column=@Column(name = "asset_attribute_value"))
-    })
-    @Embedded
+    @MappedCollection(idColumn = "id", keyColumn = "attribute_name")
     private List<AssetAttributeEntity> attributes;
 
     public AssetEntity(Asset asset){
@@ -45,5 +40,15 @@ public abstract class AssetEntity {
 
     public void setToken(String token){
         this.token = token;
+    }
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return this.id == null;
     }
 }

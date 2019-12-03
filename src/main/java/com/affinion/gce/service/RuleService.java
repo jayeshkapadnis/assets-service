@@ -1,6 +1,6 @@
 package com.affinion.gce.service;
 
-import com.affinion.gce.model.AssetType;
+import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.rule.RuleResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Qualifier;

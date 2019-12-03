@@ -73,7 +73,7 @@ dependencies {
 
     compile group: 'org.codehaus.janino', name: 'janino', version: '3.1.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.1.7.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"
+    compile group: 'org.springframework.data', name: 'spring-data-jdbc', version: '1.1.1.RELEASE'
     implementation group: 'org.springframework.boot.experimental', name: 'spring-boot-starter-data-r2dbc', version: '0.1.0.M1'
 
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.6.RELEASE'

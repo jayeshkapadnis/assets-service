@@ -1,4 +1,4 @@
-package com.affinion.gce.model;
+package com.affinion.gce.model.asset;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

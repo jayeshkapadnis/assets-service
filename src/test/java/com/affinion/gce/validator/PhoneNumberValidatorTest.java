@@ -1,10 +1,11 @@
 package com.affinion.gce.validator;
 
-import com.affinion.gce.model.AssetId;
-import com.affinion.gce.model.AssetType;
-import com.affinion.gce.model.PhoneNumber;
+import com.affinion.gce.model.asset.AssetId;
+import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.type.PhoneNumber;
 import com.affinion.gce.model.rule.RuleAttribute;
 import com.affinion.gce.model.rule.RuleResult;
+import com.affinion.gce.repository.AssetRepository;
 import com.affinion.gce.service.RuleService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,26 +16,27 @@ import java.util.Arrays;
 
 import static com.shazam.shazamcrest.matcher.Matchers.sameBeanAs;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PhoneNumberValidatorTest {
-    private PhoneNumberValidator validator;
+    private AssetRepository repository;
+    private RuleService service;
 
     @Before
     public void init(){
-        RuleService service = mock(RuleService.class);
-        this.validator = new PhoneNumberValidator(service, "1234");
+        service = mock(RuleService.class);
+        this.repository = mock(AssetRepository.class);
         when(service.rulesForAsset(any(), anyString())).thenReturn(Mono.just(mockRuleResult()));
+        when(repository.findAssetCountByMemberIdAndType(anyLong(), any())).thenReturn(Mono.just(2L));
     }
 
     @Test
     public void validateCorrectNumericPhoneNumber(){
         PhoneNumber asset = mockAsset("1234567890");
-
-        Mono<PhoneNumber> result = validator.validate(asset);
+        PhoneNumberValidator validator = new PhoneNumberValidator(repository, service, "1234", asset);
+        Mono<PhoneNumber> result = validator.validate();
 
         StepVerifier
                 .create(result)
@@ -46,15 +48,48 @@ public class PhoneNumberValidatorTest {
     @Test
     public void validateIncorrectAlphaNumericPhoneNumber(){
         PhoneNumber asset = mockAsset("12345abc");
-
-        Mono<PhoneNumber> result = validator.validate(asset);
+        PhoneNumberValidator validator = new PhoneNumberValidator(repository, service, "1234", asset);
+        Mono<PhoneNumber> result = validator.validate();
 
         StepVerifier
                 .create(result)
                 .expectErrorMatches(e -> e instanceof IllegalArgumentException &&
-                        e.getMessage().equals(String.format(PhoneNumberValidator.errorMessage,
+                        e.getMessage().equals(String.format(PhoneNumberValidator.formatError,
                                 asset.getNumber(), asset.type().getTypeKey())))
                 .verify();
+    }
+
+    @Test
+    public void validateMaxAssetCountExceededForCreateAsset(){
+        when(repository.findAssetCountByMemberIdAndType(anyLong(), any())).thenReturn(Mono.just(10L));
+
+        PhoneNumber asset = mockAsset("1234567890");
+        PhoneNumberValidator validator = new PhoneNumberValidator(repository, service, "1234", asset);
+
+        Mono<PhoneNumber> result = validator.validate();
+
+        StepVerifier
+                .create(result)
+                .expectErrorMatches(e -> e instanceof IllegalStateException &&
+                        e.getMessage().equals(String.format(PhoneNumberValidator.assetCountError, asset.type().getTypeKey())))
+                .verify();
+    }
+
+    @Test
+    public void validateMaxAssetCountShouldNotExecuteOnUpdateAsset(){
+        when(repository.findAssetCountByMemberIdAndType(anyLong(), any())).thenReturn(Mono.just(10L));
+
+        PhoneNumber asset = mockAsset("1234567890");
+        asset.getId().setId(123L);
+        PhoneNumberValidator validator = new PhoneNumberValidator(repository, service, "1234", asset);
+
+        Mono<PhoneNumber> result = validator.validate();
+
+        StepVerifier
+                .create(result)
+                .expectSubscription()
+                .assertNext(a -> assertThat(a, sameBeanAs(asset)))
+                .verifyComplete();
     }
 
     private RuleResult mockRuleResult(){

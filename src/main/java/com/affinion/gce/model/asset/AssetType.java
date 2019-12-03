@@ -1,23 +1,24 @@
-package com.affinion.gce.model;
+package com.affinion.gce.model.asset;
 
+import com.affinion.gce.model.asset.type.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AssetType {
-    US_CHILD_SSN("CSS_ChildSSN_US", "ssn", ChildSsn.class),
+    US_CHILD_SSN("CSS_ChildSSN_US", "childssn", ChildSsn.class),
     //Personal
-    EMAIL("CSS_EmailAddress", "email", Identity.class),
-    DOB("CSS_DOB", "dob", Identity.class),
+    EMAIL("CSS_EmailAddress", "email", Email.class),
+    DOB("CSS_DOB", "date_of_birth", DateOfBirth.class),
     POSTAL_ADDRESS("CSS_PostalAddress", "address_line_1", PostalAddress.class),
     NAME("CSS_MemberName", "first_name", Name.class),
     // Identity
-    PASSPORT("CSS_Passport", "passport", Identity.class),
-    US_ADULT_SSN("CSS_AdultSSN_US", "ssn", Identity.class),
-    DRIVERS_LICENSE("CSS_DriversLicense", "drivers_license", Identity.class),
-    NATIONAL_ID("CSS_NationalId", "national_id", Identity.class),
-    OTHER_ID("CSS_OtherID", "others_id", Identity.class),
-    ID_CARD("CSS_IdentityCard", "id_card", Identity.class),
-    KEY_TAG("CSS_KeyTag", "key_tag", Identity.class),
+    PASSPORT("CSS_Passport", "passport", Passport.class),
+    US_ADULT_SSN("CSS_AdultSSN_US", "ssn", AdultSsn.class),
+    DRIVERS_LICENSE("CSS_DriversLicense", "driver_license", DriversLicense.class),
+    NATIONAL_ID("CSS_NationalId", "nid", NationalIdentifier.class),
+    OTHER_ID("CSS_OtherID", "otherID", OtherIdentifier.class),
+    ID_CARD("CSS_IdentityCard", "identity_card", IdentityCard.class),
+    KEY_TAG("CSS_KeyTag", "serial_number", KeyTag.class),
     //Phone Numbers
     PHONE_NUMBER("CSS_PhoneNumber", "telephone", PhoneNumber.class),
     MOBILE_NUMBER("CSS_PhoneNumberMobile", "phone", PhoneNumber.class),

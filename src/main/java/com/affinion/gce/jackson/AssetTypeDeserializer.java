@@ -1,6 +1,6 @@
 package com.affinion.gce.jackson;
 
-import com.affinion.gce.model.*;
+import com.affinion.gce.model.asset.AssetType;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;

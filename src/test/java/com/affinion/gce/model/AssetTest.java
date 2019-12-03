@@ -1,5 +1,9 @@
 package com.affinion.gce.model;
 
+import com.affinion.gce.model.asset.Asset;
+import com.affinion.gce.model.asset.AssetId;
+import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.type.PhoneNumber;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 

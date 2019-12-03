@@ -1,6 +1,6 @@
 package com.affinion.gce.service;
 
-import com.affinion.gce.model.AssetType;
+import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.rule.RuleAttribute;
 import com.affinion.gce.model.rule.RuleResult;
 import com.fasterxml.jackson.core.JsonProcessingException;

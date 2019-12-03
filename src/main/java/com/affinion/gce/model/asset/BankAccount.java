@@ -1,6 +1,7 @@
-package com.affinion.gce.model;
+package com.affinion.gce.model.asset;
 
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,9 @@ import java.util.List;
 @Getter
 @Setter
 public abstract class BankAccount extends Asset{
+    @JsonProperty("account_num")
     private String number;
+    @JsonProperty("nick_name")
     private String nickName;
     private String type;
 
