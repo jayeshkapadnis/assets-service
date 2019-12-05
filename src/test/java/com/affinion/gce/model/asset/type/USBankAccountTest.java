@@ -3,11 +3,12 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class USBankAccountTest extends BaseAssetTest<USBankAccount>{
+public class USBankAccountTest extends BaseAssetTest<USBankAccount> {
 
     @Override
     public Class<USBankAccount> assetClazz() {
@@ -36,6 +37,19 @@ public class USBankAccountTest extends BaseAssetTest<USBankAccount>{
     public List<AssetAttributeEntity> expectedAttributes() {
         return Arrays.asList(
                 new AssetAttributeEntity("bankaccount", "096123456769"),
+                new AssetAttributeEntity("nick_name", "Personal Account"),
+                new AssetAttributeEntity("account_type", "Savings"),
+                new AssetAttributeEntity("routing_number", "CHASUS33XXX"),
+                new AssetAttributeEntity("bank_code", "ICIC"),
+                new AssetAttributeEntity("branch_code", "2900"),
+                new AssetAttributeEntity("sort_code", "ICICINBBCTS")
+        );
+    }
+
+    @Override
+    public List<AssetAttributeEntity> expectedHashedAttributes() {
+        return Arrays.asList(
+                new AssetAttributeEntity("bankaccount", "2052bdf17ab41859cdcbae9b02d114cef509b5815525b621e93c4cd373a3e074"),
                 new AssetAttributeEntity("nick_name", "Personal Account"),
                 new AssetAttributeEntity("account_type", "Savings"),
                 new AssetAttributeEntity("routing_number", "CHASUS33XXX"),

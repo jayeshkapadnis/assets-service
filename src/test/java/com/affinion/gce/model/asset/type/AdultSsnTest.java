@@ -3,28 +3,16 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
-import org.junit.Test;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Collections;
 import java.util.List;
 
-import static com.shazam.shazamcrest.matcher.Matchers.sameBeanAs;
-import static org.junit.Assert.assertThat;
-
-public class AdultSsnTest extends BaseAssetTest<AdultSsn>{
+public class AdultSsnTest extends BaseAssetTest<AdultSsn> {
 
     @Override
     public Class<AdultSsn> assetClazz() {
         return AdultSsn.class;
-    }
-
-    @Test
-    public void testAssetHashAttributes(){
-        AdultSsn asset = newAsset();
-
-        List<AssetAttributeEntity> actual = asset.hashAttributes();
-
-        assertThat(actual, sameBeanAs(expectedHashedAttributes()));
     }
 
     @Override
@@ -38,6 +26,7 @@ public class AdultSsnTest extends BaseAssetTest<AdultSsn>{
         return Collections.singletonList(new AssetAttributeEntity("ssn", "213123123"));
     }
 
+    @Override
     public List<AssetAttributeEntity> expectedHashedAttributes() {
         return Collections.singletonList(
                 new AssetAttributeEntity("ssn", "edac463b2560fc14a1fc94567bd6a533b6ce482174c42e04a7de0f77adfd536b")

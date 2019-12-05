@@ -29,7 +29,7 @@ public class PhoneNumberValidatorTest {
         service = mock(RuleService.class);
         this.repository = mock(AssetRepository.class);
         when(service.rulesForAsset(any(), anyString())).thenReturn(Mono.just(mockRuleResult()));
-        when(repository.findAssetCountByMemberIdAndType(anyLong(), any())).thenReturn(Mono.just(2L));
+        when(repository.countAllByMemberIdAndType(anyLong(), any())).thenReturn(2L);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class PhoneNumberValidatorTest {
 
     @Test
     public void validateMaxAssetCountExceededForCreateAsset(){
-        when(repository.findAssetCountByMemberIdAndType(anyLong(), any())).thenReturn(Mono.just(10L));
+        when(repository.countAllByMemberIdAndType(anyLong(), any())).thenReturn(10L);
 
         PhoneNumber asset = mockAsset("1234567890");
         PhoneNumberValidator validator = new PhoneNumberValidator(repository, service, "1234", asset);
@@ -77,7 +77,7 @@ public class PhoneNumberValidatorTest {
 
     @Test
     public void validateMaxAssetCountShouldNotExecuteOnUpdateAsset(){
-        when(repository.findAssetCountByMemberIdAndType(anyLong(), any())).thenReturn(Mono.just(10L));
+        when(repository.countAllByMemberIdAndType(anyLong(), any())).thenReturn(10L);
 
         PhoneNumber asset = mockAsset("1234567890");
         asset.getId().setId(123L);

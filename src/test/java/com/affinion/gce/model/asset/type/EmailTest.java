@@ -3,11 +3,12 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Collections;
 import java.util.List;
 
-public class EmailTest extends BaseAssetTest<Email>{
+public class EmailTest extends BaseAssetTest<Email> {
 
     @Override
     public Class<Email> assetClazz() {
@@ -23,6 +24,13 @@ public class EmailTest extends BaseAssetTest<Email>{
     @Override
     public List<AssetAttributeEntity> expectedAttributes() {
         return Collections.singletonList(new AssetAttributeEntity("email", "some.other@host.com"));
+    }
+
+    @Override
+    public List<AssetAttributeEntity> expectedHashedAttributes() {
+        return Collections.singletonList(
+                new AssetAttributeEntity("email", "3da5d7947bbaf727b98bce2c30a9f67b8b88e2cfd51d2c2118a167d6ebaddcf7")
+        );
     }
 
     @Override

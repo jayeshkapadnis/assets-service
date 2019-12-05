@@ -23,9 +23,4 @@ public class ChildSsn extends NameBased {
         attributes.add(new AssetAttributeEntity(type().id(), getSsn()));
         return attributes;
     }
-
-    @Override
-    public List<AssetAttributeEntity> hashAttributes() {
-        return null;
-    }
 }

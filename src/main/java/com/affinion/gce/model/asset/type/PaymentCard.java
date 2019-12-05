@@ -33,11 +33,6 @@ public class PaymentCard extends Asset {
     private String expiry;
 
     @Override
-    public List<AssetAttributeEntity> hashAttributes() {
-        return null;
-    }
-
-    @Override
     public List<AssetAttributeEntity> attributes() {
         return fromStream(Stream.of(
                 newAttribute("credit_card", getNumber()),

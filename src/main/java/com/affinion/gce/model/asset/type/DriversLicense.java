@@ -27,11 +27,6 @@ public class DriversLicense extends Asset {
     }
 
     @Override
-    public List<AssetAttributeEntity> hashAttributes() {
-        return null;
-    }
-
-    @Override
     public List<AssetAttributeEntity> attributes() {
         return Collections.singletonList(new AssetAttributeEntity("driver_license", getNumber()));
     }

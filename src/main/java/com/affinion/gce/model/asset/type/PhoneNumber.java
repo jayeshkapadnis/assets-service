@@ -6,7 +6,9 @@ import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.PhoneNumberValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,11 +24,6 @@ public class PhoneNumber extends Asset {
     public PhoneNumber(AssetId id, Long memberId, Long tenantId, Boolean active, String number){
         super(id, memberId, tenantId, active);
         this.number = number;
-    }
-
-    @Override
-    public List<AssetAttributeEntity> hashAttributes() {
-        return null;
     }
 
     @Override

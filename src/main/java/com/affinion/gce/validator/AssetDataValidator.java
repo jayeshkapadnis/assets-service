@@ -69,7 +69,7 @@ public abstract class AssetDataValidator<D extends Asset> {
     }
 
     private Mono<Long> fetchAssetCount() {
-        return repository.findAssetCountByMemberIdAndType(asset.getMemberId(), asset.type());
+        return Mono.just(repository.countAllByMemberIdAndType(asset.getMemberId(), asset.type()));
     }
 
     private Mono<D> validateAssetCount(Integer maxCount) {

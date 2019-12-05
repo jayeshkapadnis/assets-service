@@ -3,11 +3,12 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Collections;
 import java.util.List;
 
-public class DateOfBirthTest extends BaseAssetTest<DateOfBirth>{
+public class DateOfBirthTest extends BaseAssetTest<DateOfBirth> {
 
     @Override
     public Class<DateOfBirth> assetClazz() {
@@ -22,6 +23,13 @@ public class DateOfBirthTest extends BaseAssetTest<DateOfBirth>{
     @Override
     public List<AssetAttributeEntity> expectedAttributes() {
         return Collections.singletonList(new AssetAttributeEntity("dob", "01022017"));
+    }
+
+    @Override
+    public List<AssetAttributeEntity> expectedHashedAttributes() {
+        return Collections.singletonList(
+                new AssetAttributeEntity("dob", "0ba3dbf2555ff80fd4f315d1d75523833a7cb318620f09f5a203568d7b4a748c")
+        );
     }
 
     @Override

@@ -33,11 +33,6 @@ public class PostalAddress extends Asset {
     private String postalCode;
 
     @Override
-    public List<AssetAttributeEntity> hashAttributes() {
-        return null;
-    }
-
-    @Override
     public List<AssetAttributeEntity> attributes() {
         return fromStream(Stream.of(
                 newAttribute("address_line1", getAddressLine1()),

@@ -3,11 +3,12 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Collections;
 import java.util.List;
 
-public class NationalIdentifierTest extends BaseAssetTest<NationalIdentifier>{
+public class NationalIdentifierTest extends BaseAssetTest<NationalIdentifier> {
 
     @Override
     public Class<NationalIdentifier> assetClazz() {
@@ -23,6 +24,13 @@ public class NationalIdentifierTest extends BaseAssetTest<NationalIdentifier>{
     @Override
     public List<AssetAttributeEntity> expectedAttributes() {
         return Collections.singletonList(new AssetAttributeEntity("nid", "A67552900099"));
+    }
+
+    @Override
+    public List<AssetAttributeEntity> expectedHashedAttributes() {
+        return Collections.singletonList(
+                new AssetAttributeEntity("nid", "285b7858eb0b36467768cbfc247aad36f3ece0f939af657134ce2d6a4f18dc4f")
+        );
     }
 
     @Override

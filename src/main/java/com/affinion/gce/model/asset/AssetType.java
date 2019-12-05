@@ -8,8 +8,8 @@ public enum AssetType {
     US_CHILD_SSN("CSS_ChildSSN_US", "childssn", ChildSsn.class),
     //Personal
     EMAIL("CSS_EmailAddress", "email", Email.class),
-    DOB("CSS_DOB", "date_of_birth", DateOfBirth.class),
-    POSTAL_ADDRESS("CSS_PostalAddress", "address_line_1", PostalAddress.class),
+    DOB("CSS_DOB", "dob", DateOfBirth.class),
+    POSTAL_ADDRESS("CSS_PostalAddress", "address_line1", PostalAddress.class),
     NAME("CSS_MemberName", "first_name", Name.class),
     // Identity
     PASSPORT("CSS_Passport", "passport_number", Passport.class),
@@ -23,7 +23,7 @@ public enum AssetType {
     PHONE_NUMBER("CSS_PhoneNumber", "telephone", PhoneNumber.class),
     MOBILE_NUMBER("CSS_PhoneNumberMobile", "MobileNumber", PhoneNumber.class),
     //Financial
-    PAYMENT_CARD("CSS_PaymentCard", "payment_card", PaymentCard.class),
+    PAYMENT_CARD("CSS_PaymentCard", "credit_card", PaymentCard.class),
     PROTECTED_CARD("Asset_Helix_ProtectedCard", "protected_card", Asset.class),
     US_BANK_ACCOUNT("CSS_BankAccount_US", "iban", USBankAccount.class),
     BANK_ACCOUNT("Asset_Helix_BankAccount", "account_number", BankAccount.class);

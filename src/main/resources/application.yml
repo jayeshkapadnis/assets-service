@@ -1,8 +1,9 @@
 server:
-  port: 8087
+  port: 8088
 
 integration:
-  brms: https://kong.affinionservices.com/brms/v1
+  brms: https://api.qa.affinionservices.com/brms/v1
+  data-vault: https://kong.stage-affinionservices.com
 
 rest:
   security:
@@ -37,12 +38,21 @@ spring:
   cloud:
     config:
       enabled: false
-  r2dbc:
-    url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:5432/postgres
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  profiles:
+    active: local
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: "org.hibernate.dialect.PostgreSQLDialect"
+  datasource:
+    driverClassName: "org.postgresql.Driver"
+    url: "jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/postgres"
     username: ${POSTGRES_USERNAME:postgres}
     password: ${POSTGRES_PASSWORD:postgres}
-  profiles:
-    active: prod
 
 security:
   oauth2:

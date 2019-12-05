@@ -3,11 +3,12 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class PaymentCardTest extends BaseAssetTest<PaymentCard>{
+public class PaymentCardTest extends BaseAssetTest<PaymentCard> {
 
     @Override
     public Class<PaymentCard> assetClazz() {
@@ -34,6 +35,18 @@ public class PaymentCardTest extends BaseAssetTest<PaymentCard>{
     public List<AssetAttributeEntity> expectedAttributes() {
         return Arrays.asList(
                 new AssetAttributeEntity("credit_card", "213434567890"),
+                new AssetAttributeEntity("card_name", "Member Name"),
+                new AssetAttributeEntity("nick_name", "Personal Card"),
+                new AssetAttributeEntity("card_issuer", "ICICI BANK"),
+                new AssetAttributeEntity("card_type", "Platinum"),
+                new AssetAttributeEntity("exp_date_mmyyyy", "022020")
+        );
+    }
+
+    @Override
+    public List<AssetAttributeEntity> expectedHashedAttributes() {
+        return Arrays.asList(
+                new AssetAttributeEntity("credit_card", "e6bfa3687a1b6b8311a77dda3d7d1d58feb5b4dd99763d27c49dd12d796ee505"),
                 new AssetAttributeEntity("card_name", "Member Name"),
                 new AssetAttributeEntity("nick_name", "Personal Card"),
                 new AssetAttributeEntity("card_issuer", "ICICI BANK"),

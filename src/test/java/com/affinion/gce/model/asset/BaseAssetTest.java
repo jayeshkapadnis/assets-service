@@ -1,7 +1,6 @@
-package com.affinion.gce.model.asset.type;
+package com.affinion.gce.model.asset;
 
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
-import com.affinion.gce.model.asset.Asset;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -21,6 +20,8 @@ public abstract class BaseAssetTest<D extends Asset> {
     public abstract D newAsset();
 
     public abstract List<AssetAttributeEntity> expectedAttributes();
+
+    public abstract List<AssetAttributeEntity> expectedHashedAttributes();
 
     public abstract String serialized();
 
@@ -47,5 +48,14 @@ public abstract class BaseAssetTest<D extends Asset> {
         List<AssetAttributeEntity> actual = newAsset().attributes();
 
         assertThat(actual, sameBeanAs(expected));
+    }
+
+    @Test
+    public void testAssetHashAttributes(){
+        D asset = newAsset();
+
+        List<AssetAttributeEntity> actual = asset.hashAttributes();
+
+        assertThat(actual, sameBeanAs(expectedHashedAttributes()));
     }
 }

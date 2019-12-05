@@ -3,11 +3,12 @@ package com.affinion.gce.model.asset.type;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.BaseAssetTest;
 
 import java.util.Collections;
 import java.util.List;
 
-public class PassportTest extends BaseAssetTest<Passport>{
+public class PassportTest extends BaseAssetTest<Passport> {
 
     @Override
     public Class<Passport> assetClazz() {
@@ -23,6 +24,13 @@ public class PassportTest extends BaseAssetTest<Passport>{
     @Override
     public List<AssetAttributeEntity> expectedAttributes() {
         return Collections.singletonList(new AssetAttributeEntity("passport_number", "L267590"));
+    }
+
+    @Override
+    public List<AssetAttributeEntity> expectedHashedAttributes() {
+        return Collections.singletonList(
+                new AssetAttributeEntity("passport_number", "07137070a284ebf4884cdf1c8b785e894349c401a923605db1df83c94f82a941")
+        );
     }
 
     @Override

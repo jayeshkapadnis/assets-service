@@ -5,19 +5,21 @@ import com.affinion.gce.model.rule.RuleResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
+import reactor.retry.Retry;
 
+import java.time.Duration;
 import java.util.Collections;
 
 @Component
 public class RuleService {
-
+    public static final String RULE_GET_ATTRIBUTE_URI = "/attributevalues";
     private final WebClient client;
     private final ObjectMapper mapper;
 
@@ -33,17 +35,17 @@ public class RuleService {
         requestParams.add("attributeName", "asset_type");
         requestParams.add("attributeValue", type.getTypeKey());
         return client.post()
-                .uri("/attributevalues")
+                .uri(RULE_GET_ATTRIBUTE_URI)
                 .header("X-BRMS-Token-Key", brmsToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(Collections.singletonList(requestParams)))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError,
-                        clientResponse -> Mono.error(new IllegalArgumentException()))
-                .onStatus(HttpStatus::is5xxServerError,
-                        clientResponse -> Mono.error(new IllegalStateException()))
                 .bodyToMono(RuleResult.class)
-                .retry(3, e -> e instanceof IllegalStateException);
+                .retryWhen(
+                        Retry.onlyIf(ctx -> ctx.exception() instanceof WebClientResponseException.InternalServerError)
+                        .exponentialBackoff(Duration.ofSeconds(5), Duration.ofSeconds(10))
+                        .retryMax(2)
+                );
     }
 }

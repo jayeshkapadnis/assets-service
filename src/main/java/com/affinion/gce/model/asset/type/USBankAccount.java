@@ -34,7 +34,10 @@ public class USBankAccount extends BankAccount {
 
     @Override
     public List<AssetAttributeEntity> hashAttributes() {
-        return null;
+        return attributes().stream().map(a ->
+                a.getKey().equals("iban") || a.getKey().equals("bankaccount") ?
+                        new AssetAttributeEntity(a.getKey(), hashSequence(a.getValue())) : a
+        ).collect(Collectors.toList());
     }
 
     @Override

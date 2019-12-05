@@ -5,7 +5,10 @@ import com.affinion.gce.jpa.entity.AssetAttributeEntity;
 import com.affinion.gce.model.Hashable;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -31,7 +34,14 @@ public abstract class Asset implements Hashable {
 
     public List<AssetAttributeEntity> attributes(){
         throw new UnsupportedOperationException();
-    };
+    }
+
+    @Override
+    public List<AssetAttributeEntity> hashAttributes() {
+        return attributes().stream().map(a ->
+                a.getKey().equals(type().id()) ? new AssetAttributeEntity(a.getKey(), hashSequence(a.getValue())) : a
+        ).collect(Collectors.toList());
+    }
 
     protected Optional<AssetAttributeEntity> newAttribute(String key, String value){
         return StringUtils.isEmpty(value) ? Optional.empty() :
