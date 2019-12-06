@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class PostalAddressValidator extends AssetDataValidator<PostalAddress>{
+public class PostalAddressValidator extends AssetDataValidator<PostalAddress> {
     public PostalAddressValidator(AssetRepository repository,
                                   RuleService service,
                                   String brmsToken,

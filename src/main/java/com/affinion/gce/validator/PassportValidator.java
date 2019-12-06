@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class PassportValidator extends AssetDataValidator<Passport>{
+public class PassportValidator extends AssetDataValidator<Passport> {
     public PassportValidator(AssetRepository repository,
                              RuleService service,
                              String brmsToken,

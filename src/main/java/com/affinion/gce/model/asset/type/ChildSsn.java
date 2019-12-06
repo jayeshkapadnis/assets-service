@@ -18,7 +18,7 @@ import java.util.List;
 public class ChildSsn extends NameBased {
     private String ssn;
 
-    public ChildSsn(AssetEntity entity){
+    public ChildSsn(AssetEntity entity) {
         super(entity);
         this.ssn = entity.attributeValue(type().id());
     }

@@ -22,7 +22,7 @@ public class PhoneNumberValidator extends AssetDataValidator<PhoneNumber> {
                 .flatMap(a -> validatePattern(a.getNumber(), "phone", result));
     }
 
-    private void validateDuplicateAsset(){
+    private void validateDuplicateAsset() {
 
     }
 }

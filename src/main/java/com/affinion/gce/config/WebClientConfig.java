@@ -17,7 +17,7 @@ public class WebClientConfig {
     @LoadBalanced
     @Qualifier("loadBalancedWebClient")
     WebClient.Builder webClient(ReactiveClientRegistrationRepository clientRegistrations,
-                        ServerOAuth2AuthorizedClientRepository authorizedClients) {
+                                ServerOAuth2AuthorizedClientRepository authorizedClients) {
         ServerOAuth2AuthorizedClientExchangeFilterFunction oauth = new ServerOAuth2AuthorizedClientExchangeFilterFunction(
                 clientRegistrations, authorizedClients);
         oauth.setDefaultClientRegistrationId("keycloak");

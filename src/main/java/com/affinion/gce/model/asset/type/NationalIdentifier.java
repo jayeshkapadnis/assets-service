@@ -27,7 +27,7 @@ public class NationalIdentifier extends Asset {
         this.identifier = entity.attributeValue(type().id());
     }
 
-    public NationalIdentifier(AssetId id, Long memberId, Long tenantId, Boolean active, String identifier){
+    public NationalIdentifier(AssetId id, Long memberId, Long tenantId, Boolean active, String identifier) {
         super(id, memberId, tenantId, active);
         this.identifier = identifier;
     }

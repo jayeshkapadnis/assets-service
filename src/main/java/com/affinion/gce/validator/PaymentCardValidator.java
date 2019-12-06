@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class PaymentCardValidator extends AssetDataValidator<PaymentCard>{
+public class PaymentCardValidator extends AssetDataValidator<PaymentCard> {
     public PaymentCardValidator(AssetRepository repository,
                                 RuleService service,
                                 String brmsToken,

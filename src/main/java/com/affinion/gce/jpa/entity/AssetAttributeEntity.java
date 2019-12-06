@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Embeddable
 public class AssetAttributeEntity implements Serializable {
 
-    public AssetAttributeEntity(String key, String value){
+    public AssetAttributeEntity(String key, String value) {
         this.key = key;
         this.value = value;
     }

@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class IdentityCardValidator extends AssetDataValidator<IdentityCard>{
+public class IdentityCardValidator extends AssetDataValidator<IdentityCard> {
     public IdentityCardValidator(AssetRepository repository, RuleService service,
                                  String brmsToken, IdentityCard asset) {
         super(repository, service, brmsToken, asset);

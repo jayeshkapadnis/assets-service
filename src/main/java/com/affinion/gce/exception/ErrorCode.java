@@ -31,7 +31,7 @@ public enum ErrorCode {
         return statusCode.value();
     }
 
-    public static ErrorCode byStatusCode(HttpStatus code){
+    public static ErrorCode byStatusCode(HttpStatus code) {
         return Stream.of(values())
                 .filter(e -> e.statusCode.equals(code))
                 .findFirst()

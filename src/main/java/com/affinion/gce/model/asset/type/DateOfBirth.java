@@ -21,12 +21,12 @@ public class DateOfBirth extends Asset {
 
     private String dob;
 
-    public DateOfBirth(AssetEntity entity){
+    public DateOfBirth(AssetEntity entity) {
         super(entity);
         this.dob = entity.attributeValue(type().id());
     }
 
-    public DateOfBirth(AssetId id, Long memberId, Long tenantId, Boolean active, String dob){
+    public DateOfBirth(AssetId id, Long memberId, Long tenantId, Boolean active, String dob) {
         super(id, memberId, tenantId, active);
         this.dob = dob;
     }

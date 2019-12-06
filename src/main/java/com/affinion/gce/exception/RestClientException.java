@@ -1,6 +1,6 @@
 package com.affinion.gce.exception;
 
-public class RestClientException extends RuntimeException{
+public class RestClientException extends RuntimeException {
     public RestClientException(String message) {
         super(message);
     }

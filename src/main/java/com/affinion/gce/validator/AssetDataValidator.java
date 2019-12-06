@@ -10,8 +10,8 @@ import reactor.core.publisher.Mono;
 import java.util.regex.Pattern;
 
 public abstract class AssetDataValidator<D extends Asset> {
-    public static String assetCountError = "Maximum asset count exceeded for %s";
-    public static String formatError = "Pattern for attribute %s doesn't match for asset type %s";
+    public static final String ASSET_COUNT_MAX = "Maximum asset count exceeded for %s";
+    public static final String ATTRIBUTE_FORMAT = "Pattern for attribute %s doesn't match for asset type %s";
 
     private final RuleService service;
     private final String brmsToken;
@@ -42,25 +42,29 @@ public abstract class AssetDataValidator<D extends Asset> {
         return Mono.just(asset);
     }
 
-    protected Mono<D> validatePattern(String value, String key, RuleResult result){
+    protected Mono<D> validatePattern(String value, String key, RuleResult result) {
         return Mono.justOrEmpty(result.attributeValueByKey(key))
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("Attribute Name not found")))
                 .map(Pattern::compile)
                 .map(p -> p.matcher(value).matches())
                 .flatMap(r -> {
-                    if(r) return Mono.just(asset);
-                    return Mono.error(new DataValidationException(String.format(formatError, value, asset.type().getTypeKey())));
+                    if (r) return Mono.just(asset);
+                    return validationError(value);
                 });
     }
 
-    protected Mono<D> validateOptionalFieldPattern(String value, String key, RuleResult result){
+    private Mono<D> validationError(String value) {
+        return Mono.error(new DataValidationException(String.format(ATTRIBUTE_FORMAT, value, asset.type().getTypeKey())));
+    }
+
+    protected Mono<D> validateOptionalFieldPattern(String value, String key, RuleResult result) {
         return Mono.justOrEmpty(value)
                 .flatMap(v -> Mono.justOrEmpty(result.attributeValueByKey(key)))
                 .map(Pattern::compile)
                 .map(p -> p.matcher(value).matches())
                 .flatMap(r -> {
-                    if(r) return Mono.just(asset);
-                    return Mono.error(new DataValidationException(String.format(formatError, value, asset.type().getTypeKey())));
+                    if (r) return Mono.just(asset);
+                    return validationError(value);
                 });
     }
 
@@ -77,7 +81,7 @@ public abstract class AssetDataValidator<D extends Asset> {
         return fetchAssetCount()
                 .filterWhen(l -> Mono.just(l < maxCount))
                 .switchIfEmpty(Mono.error(
-                        new DataValidationException(String.format(assetCountError, asset.type().getTypeKey())))
+                        new DataValidationException(String.format(ASSET_COUNT_MAX, asset.type().getTypeKey())))
                 )
                 .map(a -> asset);
     }

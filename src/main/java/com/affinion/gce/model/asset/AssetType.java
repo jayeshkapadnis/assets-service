@@ -43,18 +43,18 @@ public enum AssetType {
         return typeKey;
     }
 
-    public String id(){
+    public String id() {
         return this.id;
     }
 
-    public Class<? extends Asset> domain(){
+    public Class<? extends Asset> domain() {
         return this.domain;
     }
 
     @JsonCreator
-    public static AssetType fromValue(String typeKey){
-        for (AssetType type: AssetType.values()){
-            if(type.typeKey.equalsIgnoreCase(typeKey)){
+    public static AssetType fromValue(String typeKey) {
+        for (AssetType type : AssetType.values()) {
+            if (type.typeKey.equalsIgnoreCase(typeKey)) {
                 return type;
             }
         }

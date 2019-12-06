@@ -20,11 +20,11 @@ public class VaultService {
     private final WebClient client;
 
     public VaultService(@Value("${integration.data-vault}") String baseUrl,
-                        @Qualifier("loadBalancedWebClient") WebClient.Builder builder){
+                        @Qualifier("loadBalancedWebClient") WebClient.Builder builder) {
         this.client = builder.baseUrl(baseUrl).build();
     }
 
-    public Mono<String> saveAsset(AssetEntity asset){
+    public Mono<String> saveAsset(AssetEntity asset) {
         AssetVaultRequest request = new AssetVaultRequest(asset, 1, 0, null);
         return client.post()
                 .uri(NEW_TOKEN_URI)
@@ -40,12 +40,12 @@ public class VaultService {
                 .flatMap(m -> Mono.justOrEmpty(emptyToNull(m)))
                 .switchIfEmpty(Mono.error(new RestClientException("Token not received")))
                 .flatMap(r ->
-                    r.equalsIgnoreCase("Transaction Failure") ?
-                            Mono.error(new RestClientException("Error while getting token")) : Mono.just(r)
+                        r.equalsIgnoreCase("Transaction Failure") ?
+                                Mono.error(new RestClientException("Error while getting token")) : Mono.just(r)
                 );
     }
 
-    private String emptyToNull(String field){
+    private String emptyToNull(String field) {
         return StringUtils.isEmpty(field) ? null : field;
     }
 }

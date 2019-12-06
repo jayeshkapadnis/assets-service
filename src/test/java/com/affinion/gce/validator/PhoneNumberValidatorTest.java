@@ -55,7 +55,7 @@ public class PhoneNumberValidatorTest {
         StepVerifier
                 .create(result)
                 .expectErrorMatches(e -> e instanceof DataValidationException &&
-                        e.getMessage().equals(String.format(PhoneNumberValidator.formatError,
+                        e.getMessage().equals(String.format(PhoneNumberValidator.ATTRIBUTE_FORMAT,
                                 asset.getNumber(), asset.type().getTypeKey())))
                 .verify();
     }
@@ -72,7 +72,7 @@ public class PhoneNumberValidatorTest {
         StepVerifier
                 .create(result)
                 .expectErrorMatches(e -> e instanceof DataValidationException &&
-                        e.getMessage().equals(String.format(PhoneNumberValidator.assetCountError, asset.type().getTypeKey())))
+                        e.getMessage().equals(String.format(PhoneNumberValidator.ASSET_COUNT_MAX, asset.type().getTypeKey())))
                 .verify();
     }
 

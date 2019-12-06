@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 @NoArgsConstructor
 @Setter
@@ -37,13 +36,13 @@ public class AssetEntity implements Serializable {
     @CollectionTable(name = "asset_attributes",
             joinColumns = @JoinColumn(name = "asset_id"))
     @AttributeOverrides({
-            @AttributeOverride(name="key", column=@Column(name="key")),
-            @AttributeOverride(name="value", column=@Column(name="value"))
+            @AttributeOverride(name = "key", column = @Column(name = "key")),
+            @AttributeOverride(name = "value", column = @Column(name = "value"))
     })
     @Embedded
     private List<AssetAttributeEntity> attributes;
 
-    public AssetEntity(Asset asset){
+    public AssetEntity(Asset asset) {
         this.id = asset.getId().getId();
         this.memberId = asset.getMemberId();
         this.tenantId = asset.getTenantId();
@@ -52,12 +51,12 @@ public class AssetEntity implements Serializable {
         this.attributes = asset.attributes();
     }
 
-    public AssetEntity setToken(String token){
+    public AssetEntity setToken(String token) {
         this.token = token;
         return this;
     }
 
-    public AssetEntity setAttributes(List<AssetAttributeEntity> attributes){
+    public AssetEntity setAttributes(List<AssetAttributeEntity> attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -68,7 +67,7 @@ public class AssetEntity implements Serializable {
                 .newInstance(this);
     }
 
-    public String attributeValue(String key){
+    public String attributeValue(String key) {
         return attributes.stream()
                 .filter(a -> a.getKey().equalsIgnoreCase(key))
                 .findFirst()

@@ -27,7 +27,7 @@ public class PhoneNumber extends Asset {
         this.number = entity.attributeValue(type().id());
     }
 
-    public PhoneNumber(AssetId id, Long memberId, Long tenantId, Boolean active, String number){
+    public PhoneNumber(AssetId id, Long memberId, Long tenantId, Boolean active, String number) {
         super(id, memberId, tenantId, active);
         this.number = number;
     }

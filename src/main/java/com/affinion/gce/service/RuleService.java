@@ -25,12 +25,12 @@ public class RuleService {
     private final ObjectMapper mapper;
 
     public RuleService(@Qualifier("loadBalancedWebClient") WebClient.Builder client,
-                       @Value("${integration.brms}") String baseUrl){
+                       @Value("${integration.brms}") String baseUrl) {
         this.client = client.baseUrl(baseUrl).build();
         this.mapper = new ObjectMapper();
     }
 
-    public Mono<RuleResult> rulesForAsset(AssetType type, String brmsToken){
+    public Mono<RuleResult> rulesForAsset(AssetType type, String brmsToken) {
         //Use guava ImmutableMap.of
         LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("attributeName", "asset_type");
@@ -45,8 +45,8 @@ public class RuleService {
                 .bodyToMono(RuleResult.class)
                 .retryWhen(
                         Retry.onlyIf(ctx -> ctx.exception() instanceof WebClientResponseException.InternalServerError)
-                        .exponentialBackoff(Duration.ofSeconds(5), Duration.ofSeconds(10))
-                        .retryMax(2)
+                                .exponentialBackoff(Duration.ofSeconds(5), Duration.ofSeconds(10))
+                                .retryMax(2)
                 ).doOnError(e -> {
                     throw new RestClientException(e.getMessage(), e);
                 });

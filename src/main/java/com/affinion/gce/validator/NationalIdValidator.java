@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class NationalIdValidator extends AssetDataValidator<NationalIdentifier>{
+public class NationalIdValidator extends AssetDataValidator<NationalIdentifier> {
     public NationalIdValidator(AssetRepository repository, RuleService service,
                                String brmsToken, NationalIdentifier asset) {
         super(repository, service, brmsToken, asset);

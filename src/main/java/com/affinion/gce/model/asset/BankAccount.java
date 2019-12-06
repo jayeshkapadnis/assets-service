@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @Getter
 @Setter
-public abstract class BankAccount extends Asset{
+public abstract class BankAccount extends Asset {
     @JsonProperty("account_num")
     private String number;
     @JsonProperty("nick_name")

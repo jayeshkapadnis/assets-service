@@ -6,7 +6,7 @@ import com.affinion.gce.repository.AssetRepository;
 import com.affinion.gce.service.RuleService;
 import reactor.core.publisher.Mono;
 
-public class USBankAccountValidator extends AssetDataValidator<USBankAccount>{
+public class USBankAccountValidator extends AssetDataValidator<USBankAccount> {
     public USBankAccountValidator(AssetRepository repository,
                                   RuleService service,
                                   String brmsToken,

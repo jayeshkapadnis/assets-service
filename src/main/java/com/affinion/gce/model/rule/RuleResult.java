@@ -19,14 +19,14 @@ public class RuleResult {
     @JsonProperty("ruleID")
     private Integer ruleId;
 
-    public Optional<String> attributeValueByKey(String attributeName){
+    public Optional<String> attributeValueByKey(String attributeName) {
         return result.stream()
                 .filter(a -> a.getAttributeName().equalsIgnoreCase(attributeName))
                 .findFirst()
                 .map(RuleAttribute::getAttributeValue);
     }
 
-    public Optional<Integer> assetMaxAttributeValue(){
+    public Optional<Integer> assetMaxAttributeValue() {
         return attributeValueByKey("asset_count_max")
                 .map(Integer::valueOf);
     }

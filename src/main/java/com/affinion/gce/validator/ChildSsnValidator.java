@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class ChildSsnValidator extends AssetDataValidator<ChildSsn>{
+public class ChildSsnValidator extends AssetDataValidator<ChildSsn> {
     public ChildSsnValidator(AssetRepository repository, RuleService service, String brmsToken, ChildSsn asset) {
         super(repository, service, brmsToken, asset);
     }

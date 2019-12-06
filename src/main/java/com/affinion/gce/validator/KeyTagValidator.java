@@ -8,7 +8,7 @@ import com.affinion.gce.service.RuleService;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
-public class KeyTagValidator extends AssetDataValidator<KeyTag>{
+public class KeyTagValidator extends AssetDataValidator<KeyTag> {
     public KeyTagValidator(AssetRepository repository,
                            RuleService service,
                            String brmsToken,

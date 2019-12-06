@@ -19,13 +19,13 @@ public class AssetService {
     private final VaultService vaultService;
 
     @Autowired
-    public AssetService(AssetRepository repository, RuleService service, VaultService vaultService){
+    public AssetService(AssetRepository repository, RuleService service, VaultService vaultService) {
         this.repository = repository;
         this.ruleService = service;
         this.vaultService = vaultService;
     }
 
-    public Mono<Asset> addAsset(Asset asset, String brmsToken){
+    public Mono<Asset> addAsset(Asset asset, String brmsToken) {
         return newValidator(asset, brmsToken)
                 .flatMap(AssetDataValidator::validate)
                 .cast(Asset.class)
@@ -42,7 +42,7 @@ public class AssetService {
                 });
     }
 
-    protected Mono<? extends AssetDataValidator> newValidator(Asset asset, String brmsToken){
+    protected Mono<? extends AssetDataValidator> newValidator(Asset asset, String brmsToken) {
         return Mono.justOrEmpty(asset.getClass().getAnnotation(Validator.class))
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("No validator configured")))
                 .map(Validator::value)
@@ -53,11 +53,11 @@ public class AssetService {
                         return Mono.error(e);
                     }
                 }).flatMap(c -> {
-                        try {
-                            return Mono.justOrEmpty(c.newInstance(repository, ruleService, brmsToken, asset));
-                        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                            return Mono.error(e);
-                        }
+                    try {
+                        return Mono.justOrEmpty(c.newInstance(repository, ruleService, brmsToken, asset));
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                        return Mono.error(e);
+                    }
                 });
     }
 }

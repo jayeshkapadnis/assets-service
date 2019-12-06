@@ -51,7 +51,7 @@ public class AssetTypeDeserializer extends AsPropertyTypeDeserializer {
     private Class<?> findSubType(JsonNode node) {
         String assetType = node.get("id").get("type").asText();
         AssetType type = AssetType.fromValue(assetType);
-        if(type != null){
+        if (type != null) {
             return type.domain();
         }
         return null;

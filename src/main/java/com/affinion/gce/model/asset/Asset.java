@@ -29,18 +29,18 @@ public abstract class Asset implements Hashable {
     private Long tenantId;
     private Boolean active = false;
 
-    public Asset(AssetEntity entity){
+    public Asset(AssetEntity entity) {
         this.id = new AssetId(entity.getId(), entity.getType());
         this.tenantId = entity.getTenantId();
         this.memberId = entity.getMemberId();
         this.active = entity.isActive();
     }
 
-    public AssetType type(){
+    public AssetType type() {
         return id.getType();
     }
 
-    public List<AssetAttributeEntity> attributes(){
+    public List<AssetAttributeEntity> attributes() {
         throw new UnsupportedOperationException();
     }
 
@@ -51,12 +51,12 @@ public abstract class Asset implements Hashable {
         ).collect(Collectors.toList());
     }
 
-    protected Optional<AssetAttributeEntity> newAttribute(String key, String value){
+    protected Optional<AssetAttributeEntity> newAttribute(String key, String value) {
         return StringUtils.isEmpty(value) ? Optional.empty() :
                 Optional.of(new AssetAttributeEntity(key, value));
     }
 
-    protected List<AssetAttributeEntity> fromStream(Stream<Optional<AssetAttributeEntity>> attributes){
+    protected List<AssetAttributeEntity> fromStream(Stream<Optional<AssetAttributeEntity>> attributes) {
         return attributes.filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 }

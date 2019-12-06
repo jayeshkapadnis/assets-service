@@ -1,6 +1,6 @@
 package com.affinion.gce.exception;
 
-public class CyberException extends Exception{
+public class CyberException extends Exception {
     private final ErrorCode errorCode;
 
     public CyberException(String message, ErrorCode errorCode) {
@@ -22,7 +22,7 @@ public class CyberException extends Exception{
         return errorCode.code();
     }
 
-    public int getHttpStatusCode(){
+    public int getHttpStatusCode() {
         return errorCode.statusCode();
     }
 }

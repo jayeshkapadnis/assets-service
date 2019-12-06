@@ -29,20 +29,20 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
         return errorAttributes;
     }
 
-    private CyberException handleException(Throwable e){
-        if(e instanceof DataValidationException){
+    private CyberException handleException(Throwable e) {
+        if (e instanceof DataValidationException) {
             return new CyberException(e.getMessage(), ErrorCode.BAD_REQUEST_PARAMS);
         }
-        if(e instanceof RestClientException){
+        if (e instanceof RestClientException) {
             return handleRestClientException((RestClientException) e);
         }
         return new CyberException(e.getMessage(), e, ErrorCode.GENERAL);
     }
 
-    private CyberException handleRestClientException(RestClientException e){
-        if(e.getCause() instanceof RetryExhaustedException){
+    private CyberException handleRestClientException(RestClientException e) {
+        if (e.getCause() instanceof RetryExhaustedException) {
             return new CyberException(e.getCause().getMessage(), e, ErrorCode.GENERAL);
-        }else if(e.getCause() instanceof WebClientResponseException){
+        } else if (e.getCause() instanceof WebClientResponseException) {
             WebClientResponseException cause = (WebClientResponseException) e.getCause();
             return new CyberException(cause.getMessage(), cause, ErrorCode.byStatusCode(cause.getStatusCode()));
         }

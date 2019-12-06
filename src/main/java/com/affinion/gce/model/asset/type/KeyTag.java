@@ -27,7 +27,7 @@ public class KeyTag extends Asset {
         this.serialNumber = entity.attributeValue(type().id());
     }
 
-    public KeyTag(AssetId id, Long memberId, Long tenantId, Boolean active, String serialNumber){
+    public KeyTag(AssetId id, Long memberId, Long tenantId, Boolean active, String serialNumber) {
         super(id, memberId, tenantId, active);
         this.serialNumber = serialNumber;
     }

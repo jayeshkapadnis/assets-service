@@ -27,7 +27,7 @@ public class Passport extends Asset {
         this.passport = entity.attributeValue(type().id());
     }
 
-    public Passport(AssetId id, Long memberId, Long tenantId, Boolean active, String passport){
+    public Passport(AssetId id, Long memberId, Long tenantId, Boolean active, String passport) {
         super(id, memberId, tenantId, active);
         this.passport = passport;
     }

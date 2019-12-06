@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.web.reactive.function.server.ServerResponse.*;
+import static org.springframework.web.reactive.function.server.ServerResponse.status;
 
 @RestController
 @RequestMapping("/api/assets")
@@ -23,12 +23,12 @@ public class AssetController {
     }
 
     @PostMapping
-    public Mono<ServerResponse> addAsset(@RequestParam String clientBrmsKey, @RequestBody Asset asset){
+    public Mono<ServerResponse> addAsset(@RequestParam String clientBrmsKey, @RequestBody Asset asset) {
         return assetService.addAsset(asset, clientBrmsKey)
                 .switchIfEmpty(Mono.error(new CyberException("Error while adding asset", ErrorCode.GENERAL)))
                 .flatMap(a ->
                         status(HttpStatus.CREATED)
-                        .body(BodyInserters.fromValue(a))
+                                .body(BodyInserters.fromValue(a))
                 );
     }
 }

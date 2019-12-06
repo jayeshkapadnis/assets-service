@@ -20,12 +20,12 @@ import java.util.List;
 public class AdultSsn extends Asset {
     private String ssn;
 
-    public AdultSsn(AssetEntity entity){
+    public AdultSsn(AssetEntity entity) {
         super(entity);
         this.ssn = entity.attributeValue(type().id());
     }
 
-    public AdultSsn(AssetId id, Long memberId, Long tenantId, Boolean active, String ssn){
+    public AdultSsn(AssetId id, Long memberId, Long tenantId, Boolean active, String ssn) {
         super(id, memberId, tenantId, active);
         this.ssn = ssn;
     }

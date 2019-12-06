@@ -8,7 +8,7 @@ import java.util.List;
 public interface Hashable {
     public List<AssetAttributeEntity> hashAttributes();
 
-    default String hashSequence(String value){
+    default String hashSequence(String value) {
         return DigestUtils.sha256Hex(value);
     }
 }
