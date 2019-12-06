@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.IdentityCard;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -17,7 +18,7 @@ public class IdentityCardValidator extends AssetDataValidator<IdentityCard>{
     protected Mono<IdentityCard> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getIdentifier()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Identity Card can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Identity Card can not be empty")))
                 .flatMap(a -> validatePattern(a.getIdentifier(), "identity_card", result));
     }
 }

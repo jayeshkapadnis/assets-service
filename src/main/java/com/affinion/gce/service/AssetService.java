@@ -7,7 +7,6 @@ import com.affinion.gce.repository.AssetRepository;
 import com.affinion.gce.validator.AssetDataValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,34 +16,30 @@ public class AssetService {
 
     private final AssetRepository repository;
     private final RuleService ruleService;
+    private final VaultService vaultService;
 
     @Autowired
-    public AssetService(AssetRepository repository, RuleService service){
+    public AssetService(AssetRepository repository, RuleService service, VaultService vaultService){
         this.repository = repository;
         this.ruleService = service;
+        this.vaultService = vaultService;
     }
 
-    //@SuppressWarnings("unchecked")
-    public Mono<AssetEntity> addAsset(Asset asset, String brmsToken){
-        return Mono.justOrEmpty(asset).map(AssetEntity::new)
-                .map(a -> {
-                    a.setToken("token");
-                    return a;
-                })
-                .flatMap(a -> Mono.just(repository.save(a)));
-        /*return Mono.justOrEmpty(asset).map(AssetEntity::new)
-                .map(a -> {
-                    a.setToken("token");
-                    return a;
-                })
-                .flatMap(repository::save)
-                .flatMap(this::saveAttributes);*/
-        /*return newValidator(asset, brmsToken)
-                .doOnError(e -> Mono.error(new IllegalAccessError(e.getMessage())))
+    public Mono<Asset> addAsset(Asset asset, String brmsToken){
+        return newValidator(asset, brmsToken)
                 .flatMap(AssetDataValidator::validate)
                 .cast(Asset.class)
                 .map(AssetEntity::new)
-                .flatMap(repository::save);*/
+                .flatMap(a -> vaultService.saveAsset(a).map(a::setToken))
+                .map(a -> a.setAttributes(asset.hashAttributes()))
+                .map(repository::save)
+                .flatMap(a -> {
+                    try {
+                        return Mono.just(a.toData());
+                    } catch (Exception e) {
+                        return Mono.error(e);
+                    }
+                });
     }
 
     protected Mono<? extends AssetDataValidator> newValidator(Asset asset, String brmsToken){

@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.BankAccount;
 import com.affinion.gce.validator.USBankAccountValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,9 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,6 +30,16 @@ public class USBankAccount extends BankAccount {
     @JsonProperty("sort_code")
     private String sortCode;
     private String iban;
+
+    public USBankAccount(AssetEntity entity) {
+        super(entity);
+        this.routingNumber = entity.attributeValue("routing_number");
+        this.iban = entity.attributeValue("iban");
+        this.bankCode = entity.attributeValue("bank_code");
+        this.branchCode = entity.attributeValue("branch_code");
+        this.sortCode = entity.attributeValue("sort_code");
+        this.securityCode = entity.attributeValue("security_code");
+    }
 
     @Override
     public List<AssetAttributeEntity> hashAttributes() {

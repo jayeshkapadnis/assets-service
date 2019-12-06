@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.validator.PostalAddressValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +32,19 @@ public class PostalAddress extends Asset {
     private String countryCode;
     @JsonProperty("postal_code")
     private String postalCode;
+
+    public PostalAddress(AssetEntity entity) {
+        super(entity);
+        this.addressLine1 = entity.attributeValue("address_line1");
+        this.addressLine2 = entity.attributeValue("address_line2");
+        this.addressLine3 = entity.attributeValue("address_line3");
+        this.city = entity.attributeValue("city");
+        this.state = entity.attributeValue("state");
+        this.county = entity.attributeValue("county");
+        this.country = entity.attributeValue("country");
+        this.countryCode = entity.attributeValue("country_code");
+        this.postalCode = entity.attributeValue("postal_code");
+    }
 
     @Override
     public List<AssetAttributeEntity> attributes() {

@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.DateOfBirth;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -16,7 +17,7 @@ public class DateOfBirthValidator extends AssetDataValidator<DateOfBirth> {
     protected Mono<DateOfBirth> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getDob()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Date of birth can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Date of birth can not be empty")))
                 .flatMap(a -> validatePattern(a.getDob(), "date_of_birth", result));
     }
 }

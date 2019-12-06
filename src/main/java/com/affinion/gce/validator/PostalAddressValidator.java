@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.PostalAddress;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -19,7 +20,7 @@ public class PostalAddressValidator extends AssetDataValidator<PostalAddress>{
     protected Mono<PostalAddress> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getAddressLine1()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Address line 1 can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Address line 1 can not be empty")))
                 .flatMap(a -> validatePattern(a.getAddressLine1(), "address_line1", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getAddressLine2(), "address_line2", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getAddressLine3(), "address_line3", result))

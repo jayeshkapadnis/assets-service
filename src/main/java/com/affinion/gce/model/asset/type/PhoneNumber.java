@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.PhoneNumberValidator;
@@ -20,6 +21,11 @@ import java.util.List;
 public class PhoneNumber extends Asset {
     @JsonProperty("phone")
     private String number;
+
+    public PhoneNumber(AssetEntity entity) {
+        super(entity);
+        this.number = entity.attributeValue(type().id());
+    }
 
     public PhoneNumber(AssetId id, Long memberId, Long tenantId, Boolean active, String number){
         super(id, memberId, tenantId, active);

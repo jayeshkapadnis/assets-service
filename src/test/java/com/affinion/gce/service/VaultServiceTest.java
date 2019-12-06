@@ -1,5 +1,6 @@
 package com.affinion.gce.service;
 
+import com.affinion.gce.exception.RestClientException;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
@@ -54,7 +55,7 @@ public class VaultServiceTest {
         Mono<String> source = service.saveAsset(newAsset());
 
         StepVerifier.create(source)
-                .expectErrorMatches(e -> e instanceof IllegalStateException &&
+                .expectErrorMatches(e -> e instanceof RestClientException &&
                         e.getMessage().equalsIgnoreCase("Error while getting token"))
                 .verify();
     }
@@ -70,7 +71,7 @@ public class VaultServiceTest {
         Mono<String> source = service.saveAsset(newAsset());
 
         StepVerifier.create(source)
-                .expectErrorMatches(e -> e instanceof IllegalStateException &&
+                .expectErrorMatches(e -> e instanceof RestClientException &&
                         e.getMessage().equalsIgnoreCase("Token not received"))
                 .verify();
     }

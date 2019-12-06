@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.type.PhoneNumber;
@@ -53,7 +54,7 @@ public class PhoneNumberValidatorTest {
 
         StepVerifier
                 .create(result)
-                .expectErrorMatches(e -> e instanceof IllegalArgumentException &&
+                .expectErrorMatches(e -> e instanceof DataValidationException &&
                         e.getMessage().equals(String.format(PhoneNumberValidator.formatError,
                                 asset.getNumber(), asset.type().getTypeKey())))
                 .verify();
@@ -70,7 +71,7 @@ public class PhoneNumberValidatorTest {
 
         StepVerifier
                 .create(result)
-                .expectErrorMatches(e -> e instanceof IllegalStateException &&
+                .expectErrorMatches(e -> e instanceof DataValidationException &&
                         e.getMessage().equals(String.format(PhoneNumberValidator.assetCountError, asset.type().getTypeKey())))
                 .verify();
     }

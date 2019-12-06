@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -48,7 +49,7 @@ public abstract class AssetDataValidator<D extends Asset> {
                 .map(p -> p.matcher(value).matches())
                 .flatMap(r -> {
                     if(r) return Mono.just(asset);
-                    return Mono.error(new IllegalArgumentException(String.format(formatError, value, asset.type().getTypeKey())));
+                    return Mono.error(new DataValidationException(String.format(formatError, value, asset.type().getTypeKey())));
                 });
     }
 
@@ -59,7 +60,7 @@ public abstract class AssetDataValidator<D extends Asset> {
                 .map(p -> p.matcher(value).matches())
                 .flatMap(r -> {
                     if(r) return Mono.just(asset);
-                    return Mono.error(new IllegalArgumentException(String.format(formatError, value, asset.type().getTypeKey())));
+                    return Mono.error(new DataValidationException(String.format(formatError, value, asset.type().getTypeKey())));
                 });
     }
 
@@ -76,7 +77,7 @@ public abstract class AssetDataValidator<D extends Asset> {
         return fetchAssetCount()
                 .filterWhen(l -> Mono.just(l < maxCount))
                 .switchIfEmpty(Mono.error(
-                        new IllegalStateException(String.format(assetCountError, asset.type().getTypeKey())))
+                        new DataValidationException(String.format(assetCountError, asset.type().getTypeKey())))
                 )
                 .map(a -> asset);
     }

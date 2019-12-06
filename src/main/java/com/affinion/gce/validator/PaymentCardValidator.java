@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.PaymentCard;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -19,7 +20,7 @@ public class PaymentCardValidator extends AssetDataValidator<PaymentCard>{
     protected Mono<PaymentCard> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getNumber()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Card number can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Card number can not be empty")))
                 .flatMap(a -> validatePattern(a.getNumber(), "card_num", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getName(), "card_name", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getName(), "nick_name", result))

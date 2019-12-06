@@ -10,5 +10,5 @@ public interface AssetRepository extends CrudRepository<AssetEntity, Long> {
 
     public Long countAllByMemberIdAndType(Long memberId, AssetType type);
 
-    //public Mono<Long> findAssetCountByMemberId();
+    //public boolean existsByIdAndTypeAndAttributeName(Long id, AssetType type, String key);
 }

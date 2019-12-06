@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.KeyTagValidator;
@@ -20,6 +21,11 @@ import java.util.List;
 public class KeyTag extends Asset {
     @JsonProperty("serial_number")
     private String serialNumber;
+
+    public KeyTag(AssetEntity entity) {
+        super(entity);
+        this.serialNumber = entity.attributeValue(type().id());
+    }
 
     public KeyTag(AssetId id, Long memberId, Long tenantId, Boolean active, String serialNumber){
         super(id, memberId, tenantId, active);

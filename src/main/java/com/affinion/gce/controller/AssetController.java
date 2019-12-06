@@ -1,15 +1,16 @@
 package com.affinion.gce.controller;
 
-import com.affinion.gce.jpa.entity.AssetEntity;
+import com.affinion.gce.exception.CyberException;
+import com.affinion.gce.exception.ErrorCode;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.service.AssetService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import static org.springframework.web.reactive.function.server.ServerResponse.*;
 
 @RestController
 @RequestMapping("/api/assets")
@@ -22,15 +23,12 @@ public class AssetController {
     }
 
     @PostMapping
-    public Mono<String> addAsset(@RequestBody Asset asset){
-        return assetService.addAsset(asset, "1234")
-                .switchIfEmpty(Mono.error(new IllegalStateException("No response")))
-                .flatMap(a -> {
-                    try {
-                        return Mono.just(new ObjectMapper().writeValueAsString(a));
-                    } catch (JsonProcessingException e) {
-                        return Mono.error(e);
-                    }
-                });
+    public Mono<ServerResponse> addAsset(@RequestParam String clientBrmsKey, @RequestBody Asset asset){
+        return assetService.addAsset(asset, clientBrmsKey)
+                .switchIfEmpty(Mono.error(new CyberException("Error while adding asset", ErrorCode.GENERAL)))
+                .flatMap(a ->
+                        status(HttpStatus.CREATED)
+                        .body(BodyInserters.fromValue(a))
+                );
     }
 }

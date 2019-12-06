@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.Passport;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -19,7 +20,7 @@ public class PassportValidator extends AssetDataValidator<Passport>{
     protected Mono<Passport> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getPassport()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Passport number can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Passport number can not be empty")))
                 .flatMap(a -> validatePattern(a.getPassport(), "passport", result));
     }
 }

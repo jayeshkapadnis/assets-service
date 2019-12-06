@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 @Setter
@@ -30,6 +31,8 @@ public class AssetEntity implements Serializable {
 
     private String token;
 
+    private boolean active;
+
     @ElementCollection(targetClass = AssetAttributeEntity.class)
     @CollectionTable(name = "asset_attributes",
             joinColumns = @JoinColumn(name = "asset_id"))
@@ -45,10 +48,31 @@ public class AssetEntity implements Serializable {
         this.memberId = asset.getMemberId();
         this.tenantId = asset.getTenantId();
         this.type = asset.type();
+        this.active = asset.getActive();
         this.attributes = asset.attributes();
     }
 
-    public void setToken(String token){
+    public AssetEntity setToken(String token){
         this.token = token;
+        return this;
+    }
+
+    public AssetEntity setAttributes(List<AssetAttributeEntity> attributes){
+        this.attributes = attributes;
+        return this;
+    }
+
+    public Asset toData() throws Exception {
+        Class<? extends Asset> clazz = this.getType().domain();
+        return clazz.getConstructor(AssetEntity.class)
+                .newInstance(this);
+    }
+
+    public String attributeValue(String key){
+        return attributes.stream()
+                .filter(a -> a.getKey().equalsIgnoreCase(key))
+                .findFirst()
+                .map(AssetAttributeEntity::getValue)
+                .orElse(null);
     }
 }

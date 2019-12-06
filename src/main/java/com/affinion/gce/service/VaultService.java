@@ -1,5 +1,6 @@
 package com.affinion.gce.service;
 
+import com.affinion.gce.exception.RestClientException;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.request.AssetVaultRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,14 +34,14 @@ public class VaultService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Map.class)
-                .switchIfEmpty(Mono.error(new IllegalStateException("No Response received")))
+                .switchIfEmpty(Mono.error(new RestClientException("No Response received")))
                 .map(m -> m.get("Value"))
                 .cast(String.class)
                 .flatMap(m -> Mono.justOrEmpty(emptyToNull(m)))
-                .switchIfEmpty(Mono.error(new IllegalStateException("Token not received")))
+                .switchIfEmpty(Mono.error(new RestClientException("Token not received")))
                 .flatMap(r ->
                     r.equalsIgnoreCase("Transaction Failure") ?
-                            Mono.error(new IllegalStateException("Error while getting token")) : Mono.just(r)
+                            Mono.error(new RestClientException("Error while getting token")) : Mono.just(r)
                 );
     }
 

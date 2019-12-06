@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.validator.PaymentCardValidator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +32,17 @@ public class PaymentCard extends Asset {
     private String type;
     @JsonProperty("exp_date_mmyyyy")
     private String expiry;
+
+    public PaymentCard(AssetEntity entity) {
+        super(entity);
+        this.number = entity.attributeValue("credit_card");
+        this.name = entity.attributeValue("card_name");
+        this.nickName = entity.attributeValue("nick_name");
+        this.issuer = entity.attributeValue("card_issuer");
+        this.scheme = entity.attributeValue("card_scheme");
+        this.type = entity.attributeValue("card_type");
+        this.expiry = entity.attributeValue("exp_date_mmyyyy");
+    }
 
     @Override
     public List<AssetAttributeEntity> attributes() {

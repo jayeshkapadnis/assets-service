@@ -1,5 +1,6 @@
 package com.affinion.gce.service;
 
+import com.affinion.gce.exception.RestClientException;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.rule.RuleAttribute;
 import com.affinion.gce.model.rule.RuleResult;
@@ -9,6 +10,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -41,10 +43,26 @@ public class RuleServiceTest {
         Mono<RuleResult> result = service.rulesForAsset(AssetType.PHONE_NUMBER, "12345");
 
         StepVerifier.create(result)
-                .expectErrorMatches(e -> e instanceof RetryExhaustedException &&
-                        e.getCause() instanceof WebClientResponseException.InternalServerError)
+                .expectErrorMatches(e -> e instanceof RestClientException &&
+                        e.getCause() instanceof RetryExhaustedException &&
+                        e.getCause().getCause() instanceof WebClientResponseException.InternalServerError)
                 .verify();
         verify(3, postRequestedFor(urlMatching(RULE_GET_ATTRIBUTE_URI)));
+    }
+
+    @Test
+    public void testGetRuleAttributesWithIncorrectBrmsToken(){
+        givenThat(post(urlMatching(RULE_GET_ATTRIBUTE_URI)).willReturn(aResponse().withStatus(HttpStatus.UNAUTHORIZED.value())));
+
+        Mono<RuleResult> result = service.rulesForAsset(AssetType.PHONE_NUMBER, "abcd");
+
+        StepVerifier.create(result)
+                .expectErrorMatches(e -> {
+                    System.out.println("********************* "+ e.getClass().getName());
+                    return e instanceof RestClientException &&
+                            e.getCause() instanceof WebClientResponseException.Unauthorized;
+                })
+                .verify();
     }
 
     @Test
@@ -53,7 +71,9 @@ public class RuleServiceTest {
         Mono<RuleResult> result = service.rulesForAsset(AssetType.PHONE_NUMBER, "12345");
 
         StepVerifier.create(result)
-                .expectError(WebClientResponseException.Forbidden.class)
+                .expectErrorMatches(e -> e instanceof RestClientException &&
+                        e.getCause() instanceof WebClientResponseException.Forbidden
+                )
                 .verify();
         verify(1, postRequestedFor(urlMatching(RULE_GET_ATTRIBUTE_URI)));
     }

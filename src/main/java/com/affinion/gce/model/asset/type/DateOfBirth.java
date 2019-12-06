@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.DateOfBirthValidator;
@@ -19,6 +20,11 @@ import java.util.List;
 public class DateOfBirth extends Asset {
 
     private String dob;
+
+    public DateOfBirth(AssetEntity entity){
+        super(entity);
+        this.dob = entity.attributeValue(type().id());
+    }
 
     public DateOfBirth(AssetId id, Long memberId, Long tenantId, Boolean active, String dob){
         super(id, memberId, tenantId, active);

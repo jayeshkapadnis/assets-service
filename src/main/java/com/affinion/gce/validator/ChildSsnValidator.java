@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.ChildSsn;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -16,7 +17,7 @@ public class ChildSsnValidator extends AssetDataValidator<ChildSsn>{
     protected Mono<ChildSsn> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getSsn()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Child SSN can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Child SSN can not be empty")))
                 .flatMap(a -> validatePattern(a.getSsn(), "childssn", result));
     }
 }

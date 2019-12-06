@@ -1,5 +1,6 @@
 package com.affinion.gce.service;
 
+import com.affinion.gce.exception.RestClientException;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.rule.RuleResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,7 @@ public class RuleService {
     private final ObjectMapper mapper;
 
     public RuleService(@Qualifier("loadBalancedWebClient") WebClient.Builder client,
-                       @Value("{integration.brms}") String baseUrl){
+                       @Value("${integration.brms}") String baseUrl){
         this.client = client.baseUrl(baseUrl).build();
         this.mapper = new ObjectMapper();
     }
@@ -38,7 +39,7 @@ public class RuleService {
                 .uri(RULE_GET_ATTRIBUTE_URI)
                 .header("X-BRMS-Token-Key", brmsToken)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(Collections.singletonList(requestParams)))
+                .body(BodyInserters.fromValue(Collections.singletonList(requestParams)))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(RuleResult.class)
@@ -46,6 +47,8 @@ public class RuleService {
                         Retry.onlyIf(ctx -> ctx.exception() instanceof WebClientResponseException.InternalServerError)
                         .exponentialBackoff(Duration.ofSeconds(5), Duration.ofSeconds(10))
                         .retryMax(2)
-                );
+                ).doOnError(e -> {
+                    throw new RestClientException(e.getMessage(), e);
+                });
     }
 }

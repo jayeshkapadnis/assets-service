@@ -1,5 +1,6 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.DataValidationException;
 import com.affinion.gce.model.asset.type.PhoneNumber;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -17,7 +18,7 @@ public class PhoneNumberValidator extends AssetDataValidator<PhoneNumber> {
     protected Mono<PhoneNumber> validateData(RuleResult result) {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getNumber()))
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Phone number can not be empty")))
+                .switchIfEmpty(Mono.error(new DataValidationException("Phone number can not be empty")))
                 .flatMap(a -> validatePattern(a.getNumber(), "phone", result));
     }
 

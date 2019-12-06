@@ -2,6 +2,7 @@ package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
 import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.validator.NationalIdValidator;
@@ -20,6 +21,11 @@ import java.util.List;
 public class NationalIdentifier extends Asset {
     @JsonProperty("nationalId")
     private String identifier;
+
+    public NationalIdentifier(AssetEntity entity) {
+        super(entity);
+        this.identifier = entity.attributeValue(type().id());
+    }
 
     public NationalIdentifier(AssetId id, Long memberId, Long tenantId, Boolean active, String identifier){
         super(id, memberId, tenantId, active);
