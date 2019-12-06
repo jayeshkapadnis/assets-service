@@ -5,9 +5,12 @@ import com.affinion.gce.model.asset.AssetType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -30,17 +33,26 @@ public class AssetEntity implements Serializable {
 
     private String token;
 
+    @Column(name = "is_active")
     private boolean active;
 
     @ElementCollection(targetClass = AssetAttributeEntity.class)
     @CollectionTable(name = "asset_attributes",
             joinColumns = @JoinColumn(name = "asset_id"))
     @AttributeOverrides({
-            @AttributeOverride(name = "key", column = @Column(name = "key")),
-            @AttributeOverride(name = "value", column = @Column(name = "value"))
+            @AttributeOverride(name = "key", column = @Column(name = "asset_attribute_name")),
+            @AttributeOverride(name = "value", column = @Column(name = "asset_attribute_value"))
     })
     @Embedded
     private List<AssetAttributeEntity> attributes;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date modifiedDate;
 
     public AssetEntity(Asset asset) {
         this.id = asset.getId().getId();
