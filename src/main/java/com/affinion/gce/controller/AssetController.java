@@ -23,12 +23,18 @@ public class AssetController {
     }
 
     @PostMapping
-    public Mono<ServerResponse> addAsset(@RequestParam String clientBrmsKey, @RequestBody Asset asset) {
+    public Mono<ServerResponse> saveAsset(@RequestAttribute String clientBrmsKey, @RequestBody Asset asset) {
         return assetService.addAsset(asset, clientBrmsKey)
                 .switchIfEmpty(Mono.error(new CyberException("Error while adding asset", ErrorCode.GENERAL)))
                 .flatMap(a ->
                         status(HttpStatus.CREATED)
                                 .body(BodyInserters.fromValue(a))
                 );
+    }
+
+    @GetMapping("/{id}")
+    public Mono<ServerResponse> getAssetBy(@PathVariable Long id){
+
+        return null;
     }
 }

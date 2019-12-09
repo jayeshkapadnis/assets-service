@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset.type;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.BaseAssetTest;
@@ -29,20 +29,20 @@ public class NameTest extends BaseAssetTest<Name> {
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedAttributes() {
+    public List<AssetAttribute> expectedAttributes() {
         return Arrays.asList(
-                new AssetAttributeEntity("first_name", "John"),
-                new AssetAttributeEntity("middle_name", "Peter"),
-                new AssetAttributeEntity("last_name", "Doe")
+                new AssetAttribute("first_name", "John"),
+                new AssetAttribute("middle_name", "Peter"),
+                new AssetAttribute("last_name", "Doe")
         );
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedHashedAttributes() {
+    public List<AssetAttribute> expectedHashedAttributes() {
         return Arrays.asList(
-                new AssetAttributeEntity("first_name", "a8cfcd74832004951b4408cdb0a5dbcd8c7e52d43f7fe244bf720582e05241da"),
-                new AssetAttributeEntity("middle_name", "Peter"),
-                new AssetAttributeEntity("last_name", "Doe")
+                new AssetAttribute("first_name", "a8cfcd74832004951b4408cdb0a5dbcd8c7e52d43f7fe244bf720582e05241da"),
+                new AssetAttribute("middle_name", "Peter"),
+                new AssetAttribute("last_name", "Doe")
         );
     }
 

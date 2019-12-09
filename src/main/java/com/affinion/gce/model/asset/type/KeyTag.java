@@ -1,7 +1,7 @@
 package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetId;
@@ -33,7 +33,7 @@ public class KeyTag extends Asset {
     }
 
     @Override
-    public List<AssetAttributeEntity> attributes() {
-        return Collections.singletonList(new AssetAttributeEntity(type().id(), getSerialNumber()));
+    public List<AssetAttribute> attributes() {
+        return Collections.singletonList(new AssetAttribute(type().id(), getSerialNumber()));
     }
 }

@@ -36,7 +36,7 @@ public class AssetEntity implements Serializable {
     @Column(name = "is_active")
     private boolean active;
 
-    @ElementCollection(targetClass = AssetAttributeEntity.class)
+    @ElementCollection(targetClass = AssetAttribute.class)
     @CollectionTable(name = "asset_attributes",
             joinColumns = @JoinColumn(name = "asset_id"))
     @AttributeOverrides({
@@ -44,11 +44,11 @@ public class AssetEntity implements Serializable {
             @AttributeOverride(name = "value", column = @Column(name = "asset_attribute_value"))
     })
     @Embedded
-    private List<AssetAttributeEntity> attributes;
+    private List<AssetAttribute> attributes;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date createDate;
+    private Date createdDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
@@ -68,7 +68,7 @@ public class AssetEntity implements Serializable {
         return this;
     }
 
-    public AssetEntity setAttributes(List<AssetAttributeEntity> attributes) {
+    public AssetEntity setAttributes(List<AssetAttribute> attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -83,7 +83,7 @@ public class AssetEntity implements Serializable {
         return attributes.stream()
                 .filter(a -> a.getKey().equalsIgnoreCase(key))
                 .findFirst()
-                .map(AssetAttributeEntity::getValue)
+                .map(AssetAttribute::getValue)
                 .orElse(null);
     }
 }

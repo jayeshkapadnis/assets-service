@@ -19,6 +19,7 @@ public class NationalIdValidator extends AssetDataValidator<NationalIdentifier> 
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getIdentifier()))
                 .switchIfEmpty(Mono.error(new DataValidationException("National ID can not be empty")))
-                .flatMap(a -> validatePattern(a.getIdentifier(), "national_Id", result));
+                .flatMap(a -> validatePattern(a.getIdentifier(), "national_Id", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

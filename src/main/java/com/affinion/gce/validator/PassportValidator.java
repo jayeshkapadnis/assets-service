@@ -21,6 +21,7 @@ public class PassportValidator extends AssetDataValidator<Passport> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getPassport()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Passport number can not be empty")))
-                .flatMap(a -> validatePattern(a.getPassport(), "passport", result));
+                .flatMap(a -> validatePattern(a.getPassport(), "passport", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

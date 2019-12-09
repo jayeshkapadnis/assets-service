@@ -29,6 +29,7 @@ public class PostalAddressValidator extends AssetDataValidator<PostalAddress> {
                 .flatMap(a -> validateOptionalFieldPattern(a.getState(), "state", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getCountry(), "country", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getCounty(), "county", result))
-                .flatMap(a -> validateOptionalFieldPattern(a.getCountryCode(), "county_code", result));
+                .flatMap(a -> validateOptionalFieldPattern(a.getCountryCode(), "county_code", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

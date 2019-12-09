@@ -19,6 +19,7 @@ public class DriversLicenseValidator extends AssetDataValidator<DriversLicense> 
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getNumber()))
                 .switchIfEmpty(Mono.error(new DataValidationException("License Number can not be empty")))
-                .flatMap(a -> validatePattern(a.getNumber(), "driverLicense", result));
+                .flatMap(a -> validatePattern(a.getNumber(), "driverLicense", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

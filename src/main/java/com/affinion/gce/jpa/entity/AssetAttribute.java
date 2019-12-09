@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Embeddable
-public class AssetAttributeEntity implements Serializable {
+public class AssetAttribute implements Serializable {
 
-    public AssetAttributeEntity(String key, String value) {
+    public AssetAttribute(String key, String value) {
         this.key = key;
         this.value = value;
     }

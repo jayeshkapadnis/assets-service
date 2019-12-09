@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset.type;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.BaseAssetTest;
@@ -32,26 +32,26 @@ public class PaymentCardTest extends BaseAssetTest<PaymentCard> {
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedAttributes() {
+    public List<AssetAttribute> expectedAttributes() {
         return Arrays.asList(
-                new AssetAttributeEntity("credit_card", "213434567890"),
-                new AssetAttributeEntity("card_name", "Member Name"),
-                new AssetAttributeEntity("nick_name", "Personal Card"),
-                new AssetAttributeEntity("card_issuer", "ICICI BANK"),
-                new AssetAttributeEntity("card_type", "Platinum"),
-                new AssetAttributeEntity("exp_date_mmyyyy", "022020")
+                new AssetAttribute("credit_card", "213434567890"),
+                new AssetAttribute("card_name", "Member Name"),
+                new AssetAttribute("nick_name", "Personal Card"),
+                new AssetAttribute("card_issuer", "ICICI BANK"),
+                new AssetAttribute("card_type", "Platinum"),
+                new AssetAttribute("exp_date_mmyyyy", "022020")
         );
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedHashedAttributes() {
+    public List<AssetAttribute> expectedHashedAttributes() {
         return Arrays.asList(
-                new AssetAttributeEntity("credit_card", "e6bfa3687a1b6b8311a77dda3d7d1d58feb5b4dd99763d27c49dd12d796ee505"),
-                new AssetAttributeEntity("card_name", "Member Name"),
-                new AssetAttributeEntity("nick_name", "Personal Card"),
-                new AssetAttributeEntity("card_issuer", "ICICI BANK"),
-                new AssetAttributeEntity("card_type", "Platinum"),
-                new AssetAttributeEntity("exp_date_mmyyyy", "022020")
+                new AssetAttribute("credit_card", "e6bfa3687a1b6b8311a77dda3d7d1d58feb5b4dd99763d27c49dd12d796ee505"),
+                new AssetAttribute("card_name", "Member Name"),
+                new AssetAttribute("nick_name", "Personal Card"),
+                new AssetAttribute("card_issuer", "ICICI BANK"),
+                new AssetAttribute("card_type", "Platinum"),
+                new AssetAttribute("exp_date_mmyyyy", "022020")
         );
     }
 

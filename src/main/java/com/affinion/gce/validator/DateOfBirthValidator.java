@@ -18,6 +18,7 @@ public class DateOfBirthValidator extends AssetDataValidator<DateOfBirth> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getDob()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Date of birth can not be empty")))
-                .flatMap(a -> validatePattern(a.getDob(), "date_of_birth", result));
+                .flatMap(a -> validatePattern(a.getDob(), "date_of_birth", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

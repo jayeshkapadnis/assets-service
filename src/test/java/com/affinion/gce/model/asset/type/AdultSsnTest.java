@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset.type;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.BaseAssetTest;
@@ -22,14 +22,14 @@ public class AdultSsnTest extends BaseAssetTest<AdultSsn> {
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedAttributes() {
-        return Collections.singletonList(new AssetAttributeEntity("ssn", "213123123"));
+    public List<AssetAttribute> expectedAttributes() {
+        return Collections.singletonList(new AssetAttribute("ssn", "213123123"));
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedHashedAttributes() {
+    public List<AssetAttribute> expectedHashedAttributes() {
         return Collections.singletonList(
-                new AssetAttributeEntity("ssn", "edac463b2560fc14a1fc94567bd6a533b6ce482174c42e04a7de0f77adfd536b")
+                new AssetAttribute("ssn", "edac463b2560fc14a1fc94567bd6a533b6ce482174c42e04a7de0f77adfd536b")
         );
     }
 

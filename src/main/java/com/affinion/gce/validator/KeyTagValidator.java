@@ -21,6 +21,7 @@ public class KeyTagValidator extends AssetDataValidator<KeyTag> {
         return super.validateData(result)
                 .filter(k -> !StringUtils.isEmpty(asset.getSerialNumber()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Serial Number can not be empty")))
-                .flatMap(a -> validatePattern(a.getSerialNumber(), "serial_number", result));
+                .flatMap(a -> validatePattern(a.getSerialNumber(), "serial_number", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public abstract class BankAccount extends Asset {
     }
 
     @Override
-    public List<AssetAttributeEntity> attributes() {
+    public List<AssetAttribute> attributes() {
         return fromStream(Stream.of(
                 newAttribute("bankaccount", getNumber()),
                 newAttribute("nick_name", getNickName()),

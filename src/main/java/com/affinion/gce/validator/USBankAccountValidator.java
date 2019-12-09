@@ -25,6 +25,7 @@ public class USBankAccountValidator extends AssetDataValidator<USBankAccount> {
                 .flatMap(a -> validateOptionalFieldPattern(a.getBranchCode(), "branch_code", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getSortCode(), "sort_code", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getSecurityCode(), "security_code", result))
-                .flatMap(a -> validateOptionalFieldPattern(a.getRoutingNumber(), "routing_number", result));
+                .flatMap(a -> validateOptionalFieldPattern(a.getRoutingNumber(), "routing_number", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

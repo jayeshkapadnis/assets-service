@@ -19,6 +19,7 @@ public class IdentityCardValidator extends AssetDataValidator<IdentityCard> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getIdentifier()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Identity Card can not be empty")))
-                .flatMap(a -> validatePattern(a.getIdentifier(), "identity_card", result));
+                .flatMap(a -> validatePattern(a.getIdentifier(), "identity_card", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

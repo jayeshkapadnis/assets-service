@@ -2,6 +2,8 @@ package com.affinion.gce.service;
 
 import com.affinion.gce.exception.RestClientException;
 import com.affinion.gce.jpa.entity.AssetEntity;
+import com.affinion.gce.model.asset.Asset;
+import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.request.AssetVaultRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,19 +18,21 @@ import java.util.Map;
 
 @Component
 public class VaultService {
-    public static final String NEW_TOKEN_URI = "/datavault_token";
+    public static final String TOKEN_URI = "/datavault_token";
     private final WebClient client;
 
-    public VaultService(@Value("${integration.data-vault}") String baseUrl,
+    public VaultService(@Value("${integration.data-vault.base-url}") String baseUrl,
+                        @Value("${integration.data-vault.key}") String apiKey,
                         @Qualifier("loadBalancedWebClient") WebClient.Builder builder) {
-        this.client = builder.baseUrl(baseUrl).build();
+        this.client = builder.baseUrl(baseUrl)
+                .defaultHeader("x-api-key", apiKey)
+                .build();
     }
 
     public Mono<String> saveAsset(AssetEntity asset) {
         AssetVaultRequest request = new AssetVaultRequest(asset, 1, 0, null);
         return client.post()
-                .uri(NEW_TOKEN_URI)
-                .header("x-api-key", "key")
+                .uri(TOKEN_URI)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(request))
                 .accept(MediaType.APPLICATION_JSON)

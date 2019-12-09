@@ -1,7 +1,7 @@
 package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.BankAccount;
 import com.affinion.gce.validator.USBankAccountValidator;
@@ -42,16 +42,16 @@ public class USBankAccount extends BankAccount {
     }
 
     @Override
-    public List<AssetAttributeEntity> hashAttributes() {
+    public List<AssetAttribute> hashAttributes() {
         return attributes().stream().map(a ->
                 a.getKey().equals("iban") || a.getKey().equals("bankaccount") ?
-                        new AssetAttributeEntity(a.getKey(), hashSequence(a.getValue())) : a
+                        new AssetAttribute(a.getKey(), hashSequence(a.getValue())) : a
         ).collect(Collectors.toList());
     }
 
     @Override
-    public List<AssetAttributeEntity> attributes() {
-        List<AssetAttributeEntity> bankAccountAttributes = super.attributes();
+    public List<AssetAttribute> attributes() {
+        List<AssetAttribute> bankAccountAttributes = super.attributes();
         bankAccountAttributes.addAll(fromStream(Stream.of(
                 newAttribute("iban", getIban()),
                 newAttribute("routing_number", getRoutingNumber()),

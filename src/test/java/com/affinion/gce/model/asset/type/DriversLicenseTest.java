@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset.type;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.BaseAssetTest;
@@ -22,14 +22,14 @@ public class DriversLicenseTest extends BaseAssetTest<DriversLicense> {
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedAttributes() {
-        return Collections.singletonList(new AssetAttributeEntity("driver_license", "567890"));
+    public List<AssetAttribute> expectedAttributes() {
+        return Collections.singletonList(new AssetAttribute("driver_license", "567890"));
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedHashedAttributes() {
+    public List<AssetAttribute> expectedHashedAttributes() {
         return Collections.singletonList(
-                new AssetAttributeEntity("driver_license", "b39667cf64cd5bc6cd7adbfc711cd8446036f9144c1cceb604897b0e824a027d")
+                new AssetAttribute("driver_license", "b39667cf64cd5bc6cd7adbfc711cd8446036f9144c1cceb604897b0e824a027d")
         );
     }
 

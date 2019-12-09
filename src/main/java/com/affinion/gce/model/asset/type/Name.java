@@ -1,7 +1,7 @@
 package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.NameBased;
 import com.affinion.gce.validator.MemberNameValidator;
@@ -22,7 +22,7 @@ public class Name extends NameBased {
     }
 
     @Override
-    public List<AssetAttributeEntity> attributes() {
+    public List<AssetAttribute> attributes() {
         return nameAttributes();
     }
 }

@@ -18,6 +18,7 @@ public class ChildSsnValidator extends AssetDataValidator<ChildSsn> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getSsn()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Child SSN can not be empty")))
-                .flatMap(a -> validatePattern(a.getSsn(), "childssn", result));
+                .flatMap(a -> validatePattern(a.getSsn(), "childssn", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

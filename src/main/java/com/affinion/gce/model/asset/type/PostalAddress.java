@@ -1,7 +1,7 @@
 package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.validator.PostalAddressValidator;
@@ -47,7 +47,7 @@ public class PostalAddress extends Asset {
     }
 
     @Override
-    public List<AssetAttributeEntity> attributes() {
+    public List<AssetAttribute> attributes() {
         return fromStream(Stream.of(
                 newAttribute("address_line1", getAddressLine1()),
                 newAttribute("address_line2", getAddressLine2()),

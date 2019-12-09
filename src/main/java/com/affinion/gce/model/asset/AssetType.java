@@ -25,7 +25,7 @@ public enum AssetType {
     //Financial
     PAYMENT_CARD("CSS_PaymentCard", "credit_card", PaymentCard.class),
     PROTECTED_CARD("Asset_Helix_ProtectedCard", "protected_card", Asset.class),
-    US_BANK_ACCOUNT("CSS_BankAccount_US", "iban", USBankAccount.class),
+    US_BANK_ACCOUNT("CSS_BankAccount_US", "bankaccount", USBankAccount.class),
     BANK_ACCOUNT("Asset_Helix_BankAccount", "account_number", BankAccount.class);
 
     private final String typeKey;

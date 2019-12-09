@@ -27,6 +27,7 @@ public class PaymentCardValidator extends AssetDataValidator<PaymentCard> {
                 .flatMap(a -> validateOptionalFieldPattern(a.getName(), "card_issuer", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getName(), "card_scheme", result))
                 .flatMap(a -> validateOptionalFieldPattern(a.getName(), "card_type", result))
-                .flatMap(a -> validateOptionalFieldPattern(a.getName(), "exp_date_mmyyyy", result));
+                .flatMap(a -> validateOptionalFieldPattern(a.getName(), "exp_date_mmyyyy", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

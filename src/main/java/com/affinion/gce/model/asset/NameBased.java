@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public abstract class NameBased extends Asset {
         this.lastName = entity.attributeValue("last_name");
     }
 
-    protected List<AssetAttributeEntity> nameAttributes() {
+    protected List<AssetAttribute> nameAttributes() {
         return fromStream(Stream.of(
                 newAttribute("first_name", getFirstName()),
                 newAttribute("middle_name", getMiddleName()),

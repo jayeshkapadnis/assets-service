@@ -1,7 +1,7 @@
 package com.affinion.gce.model.asset;
 
 import com.affinion.gce.jackson.AssetTypeResolver;
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.Hashable;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -40,23 +40,23 @@ public abstract class Asset implements Hashable {
         return id.getType();
     }
 
-    public List<AssetAttributeEntity> attributes() {
+    public List<AssetAttribute> attributes() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<AssetAttributeEntity> hashAttributes() {
+    public List<AssetAttribute> hashAttributes() {
         return attributes().stream().map(a ->
-                a.getKey().equals(type().id()) ? new AssetAttributeEntity(a.getKey(), hashSequence(a.getValue())) : a
+                a.getKey().equals(type().id()) ? new AssetAttribute(a.getKey(), hashSequence(a.getValue())) : a
         ).collect(Collectors.toList());
     }
 
-    protected Optional<AssetAttributeEntity> newAttribute(String key, String value) {
+    protected Optional<AssetAttribute> newAttribute(String key, String value) {
         return StringUtils.isEmpty(value) ? Optional.empty() :
-                Optional.of(new AssetAttributeEntity(key, value));
+                Optional.of(new AssetAttribute(key, value));
     }
 
-    protected List<AssetAttributeEntity> fromStream(Stream<Optional<AssetAttributeEntity>> attributes) {
+    protected List<AssetAttribute> fromStream(Stream<Optional<AssetAttribute>> attributes) {
         return attributes.filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 }

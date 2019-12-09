@@ -3,7 +3,9 @@ server:
 
 integration:
   brms: https://api.qa.affinionservices.com/brms/v1
-  data-vault: https://kong.stage-affinionservices.com
+  data-vault:
+    base-url: https://kong.stage-affinionservices.com
+    key: api-key
 
 rest:
   security:

@@ -19,10 +19,7 @@ public class PhoneNumberValidator extends AssetDataValidator<PhoneNumber> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getNumber()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Phone number can not be empty")))
-                .flatMap(a -> validatePattern(a.getNumber(), "phone", result));
-    }
-
-    private void validateDuplicateAsset() {
-
+                .flatMap(a -> validatePattern(a.getNumber(), "phone", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

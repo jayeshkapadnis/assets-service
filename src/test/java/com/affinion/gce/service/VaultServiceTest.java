@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import static com.affinion.gce.service.VaultService.NEW_TOKEN_URI;
+import static com.affinion.gce.service.VaultService.TOKEN_URI;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.junit.Assert.assertEquals;
@@ -26,12 +26,12 @@ public class VaultServiceTest {
     private static int port = 8888;
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(options().port(port));
-    private final VaultService service = new VaultService(String.format("http://localhost:%d", port),
+    private final VaultService service = new VaultService(String.format("http://localhost:%d", port), "api-key",
             WebClient.builder().clientConnector(new ReactorClientHttpConnector()));
 
     @Test
     public void testSaveAttributeWithSuccessTokenResponse(){
-        givenThat(post(urlMatching(NEW_TOKEN_URI))
+        givenThat(post(urlMatching(TOKEN_URI))
                 .willReturn(aResponse()
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"Value\": \"token\"}")
@@ -46,7 +46,7 @@ public class VaultServiceTest {
 
     @Test
     public void testSaveAssetWithFailureResponse(){
-        givenThat(post(urlMatching(NEW_TOKEN_URI))
+        givenThat(post(urlMatching(TOKEN_URI))
                 .willReturn(aResponse()
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"Value\": \"Transaction Failure\"}")
@@ -62,7 +62,7 @@ public class VaultServiceTest {
 
     @Test
     public void testSaveAssetWithEmptyToken(){
-        givenThat(post(urlMatching(NEW_TOKEN_URI))
+        givenThat(post(urlMatching(TOKEN_URI))
                 .willReturn(aResponse()
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"Value\": \"\"}")
@@ -78,7 +78,7 @@ public class VaultServiceTest {
 
     @Test
     public void testSaveAssetWithEmptyResponse(){
-        givenThat(post(urlMatching(NEW_TOKEN_URI))
+        givenThat(post(urlMatching(TOKEN_URI))
                 .willReturn(aResponse()
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody(" ")
@@ -93,7 +93,7 @@ public class VaultServiceTest {
 
     @Test
     public void testSaveAssetWithUnauthorizedException(){
-        givenThat(post(urlMatching(NEW_TOKEN_URI))
+        givenThat(post(urlMatching(TOKEN_URI))
                 .willReturn(aResponse()
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"error\": \"Unauthorized\"}")
@@ -108,7 +108,7 @@ public class VaultServiceTest {
 
     @Test
     public void testSaveAssetWithBadRequestException(){
-        givenThat(post(urlMatching(NEW_TOKEN_URI))
+        givenThat(post(urlMatching(TOKEN_URI))
                 .willReturn(aResponse()
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"error\": \"Missing Asset\"}")

@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset.type;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.BaseAssetTest;
@@ -27,14 +27,14 @@ public class MobileNumberTest extends BaseAssetTest<PhoneNumber> {
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedAttributes() {
-        return Collections.singletonList(new AssetAttributeEntity("MobileNumber", "9856678905"));
+    public List<AssetAttribute> expectedAttributes() {
+        return Collections.singletonList(new AssetAttribute("MobileNumber", "9856678905"));
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedHashedAttributes() {
+    public List<AssetAttribute> expectedHashedAttributes() {
         return Collections.singletonList(
-                new AssetAttributeEntity("MobileNumber", "94805179531900df2501a1e38a9f09c6304d5d9d4a3655c220ce7a613afb2268")
+                new AssetAttribute("MobileNumber", "94805179531900df2501a1e38a9f09c6304d5d9d4a3655c220ce7a613afb2268")
         );
     }
 

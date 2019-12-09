@@ -20,6 +20,7 @@ public class EmailValidator extends AssetDataValidator<Email> {
     protected Mono<Email> validateData(RuleResult result) {
         return super.validateData(result).filter(a -> !StringUtils.isEmpty(a.getEmail()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Email can not be empty")))
-                .flatMap(a -> validatePattern(a.getEmail(), "email", result));
+                .flatMap(a -> validatePattern(a.getEmail(), "email", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

@@ -1,7 +1,7 @@
 package com.affinion.gce.model.asset.type;
 
 import com.affinion.gce.annotation.Validator;
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.validator.PaymentCardValidator;
@@ -45,7 +45,7 @@ public class PaymentCard extends Asset {
     }
 
     @Override
-    public List<AssetAttributeEntity> attributes() {
+    public List<AssetAttribute> attributes() {
         return fromStream(Stream.of(
                 newAttribute("credit_card", getNumber()),
                 newAttribute("card_name", getName()),

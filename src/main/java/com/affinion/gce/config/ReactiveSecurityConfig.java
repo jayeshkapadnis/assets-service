@@ -25,7 +25,7 @@ public class ReactiveSecurityConfig {
                 .csrf().disable()
                 .authorizeExchange()
                 .pathMatchers("/actuator/**").permitAll()
-                .pathMatchers("/api/v1/webclient", "/api/assets").permitAll()
+                .pathMatchers("/api/v1/webclient", "/api/assets/**").permitAll()
                 .pathMatchers("/v2/api-docs",
                         "/swagger-ui.html",
                         "/swagger-resources/**",

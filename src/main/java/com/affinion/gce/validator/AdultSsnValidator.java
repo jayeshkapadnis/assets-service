@@ -21,6 +21,7 @@ public class AdultSsnValidator extends AssetDataValidator<AdultSsn> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getSsn()))
                 .switchIfEmpty(Mono.error(new DataValidationException("SSN can not be empty")))
-                .flatMap(a -> validatePattern(a.getSsn(), "adultssn", result));
+                .flatMap(a -> validatePattern(a.getSsn(), "adultssn", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

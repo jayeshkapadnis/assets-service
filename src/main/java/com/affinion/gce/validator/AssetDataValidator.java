@@ -1,6 +1,9 @@
 package com.affinion.gce.validator;
 
+import com.affinion.gce.exception.CyberException;
 import com.affinion.gce.exception.DataValidationException;
+import com.affinion.gce.exception.ErrorCode;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.rule.RuleResult;
 import com.affinion.gce.repository.AssetRepository;
@@ -66,6 +69,20 @@ public abstract class AssetDataValidator<D extends Asset> {
                     if (r) return Mono.just(asset);
                     return validationError(value);
                 });
+    }
+
+    protected Mono<D> validateDuplicate(String key){
+        if(asset.getId().getId() == null) {
+            return Mono.justOrEmpty(asset.hashAttributes().stream()
+                    .filter(a -> a.getKey().equals(key))
+                    .findFirst())
+                    .map(AssetAttribute::getValue)
+                    .map(v -> repository.countByIdAndTypeAndAttribute(asset.getMemberId(), asset.type(), key, v))
+                    .flatMap(c -> c > 0 ?
+                            Mono.error(new CyberException("Duplicate found", ErrorCode.CONFLICT_ITEM)) :
+                            Mono.just(asset));
+        }
+        return Mono.just(asset);
     }
 
     //Todo: add some failure test for this

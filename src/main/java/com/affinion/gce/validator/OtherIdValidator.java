@@ -19,6 +19,7 @@ public class OtherIdValidator extends AssetDataValidator<OtherIdentifier> {
         return super.validateData(result)
                 .filter(a -> !StringUtils.isEmpty(a.getIdentifier()))
                 .switchIfEmpty(Mono.error(new DataValidationException("Online ID can not be null")))
-                .flatMap(a -> validatePattern(a.getIdentifier(), "otherId", result));
+                .flatMap(a -> validatePattern(a.getIdentifier(), "otherId", result))
+                .flatMap(a -> validateDuplicate(a.type().id()));
     }
 }

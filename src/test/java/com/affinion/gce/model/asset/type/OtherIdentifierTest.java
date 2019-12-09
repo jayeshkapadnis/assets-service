@@ -1,6 +1,6 @@
 package com.affinion.gce.model.asset.type;
 
-import com.affinion.gce.jpa.entity.AssetAttributeEntity;
+import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.model.asset.AssetId;
 import com.affinion.gce.model.asset.AssetType;
 import com.affinion.gce.model.asset.BaseAssetTest;
@@ -22,14 +22,14 @@ public class OtherIdentifierTest extends BaseAssetTest<OtherIdentifier> {
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedAttributes() {
-        return Collections.singletonList(new AssetAttributeEntity("otherID", "SOME_ONLINE_ID"));
+    public List<AssetAttribute> expectedAttributes() {
+        return Collections.singletonList(new AssetAttribute("otherID", "SOME_ONLINE_ID"));
     }
 
     @Override
-    public List<AssetAttributeEntity> expectedHashedAttributes() {
+    public List<AssetAttribute> expectedHashedAttributes() {
         return Collections.singletonList(
-                new AssetAttributeEntity("otherID", "62f90f9afd47e56be0d2e49f92aacf7eaf8171f806ac957c2d7ac64dc741a9d6")
+                new AssetAttribute("otherID", "62f90f9afd47e56be0d2e49f92aacf7eaf8171f806ac957c2d7ac64dc741a9d6")
         );
     }
 
