@@ -17,7 +17,7 @@ public class IdentityCardTest extends BaseAssetTest<IdentityCard> {
 
     @Override
     public IdentityCard newAsset() {
-        return new IdentityCard(new AssetId(123L, AssetType.ID_CARD), 12345L,
+        return new IdentityCard(new AssetId(123L, AssetType.ID_CARD), "idName", 12345L,
                 123L, true, "PAN123NUMB");
     }
 
@@ -35,7 +35,7 @@ public class IdentityCardTest extends BaseAssetTest<IdentityCard> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":123,\"type\":\"CSS_IdentityCard\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"identity_card\":\"PAN123NUMB\"}";
+        return "{\"id\":{\"id\":123,\"type\":\"CSS_IdentityCard\"},\"name\":\"idName\"," +
+                "\"tenantId\":123,\"active\":true,\"member_id\":12345,\"identity_card\":\"PAN123NUMB\"}";
     }
 }

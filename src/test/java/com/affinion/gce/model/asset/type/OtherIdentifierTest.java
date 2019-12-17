@@ -17,7 +17,7 @@ public class OtherIdentifierTest extends BaseAssetTest<OtherIdentifier> {
 
     @Override
     public OtherIdentifier newAsset() {
-        return new OtherIdentifier(new AssetId(null, AssetType.OTHER_ID), 12345L,
+        return new OtherIdentifier(new AssetId(null, AssetType.OTHER_ID), "Online ID", 12345L,
                 123L, true, "SOME_ONLINE_ID");
     }
 
@@ -35,7 +35,7 @@ public class OtherIdentifierTest extends BaseAssetTest<OtherIdentifier> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_OtherID\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"online_id\":\"SOME_ONLINE_ID\"}";
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_OtherID\"},\"name\":\"Online ID\"," +
+                "\"tenantId\":123,\"active\":true,\"member_id\":12345,\"online_id\":\"SOME_ONLINE_ID\"}";
     }
 }

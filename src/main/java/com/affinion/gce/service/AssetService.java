@@ -68,7 +68,7 @@ public class AssetService {
                 .defaultIfEmpty(IdType.ID)
                 .map(i -> {
                     if(i.equals(IdType.EXTERNAL_MEMBER_REF)){
-                        return 123L;
+                        return 123L; //TODO: Call member service to get Member ID from Ext member ref
                     }
                     return memberId;
                 }).map(repository::findAllByMemberId)

@@ -18,6 +18,7 @@ public class ChildSsnTest extends BaseAssetTest<ChildSsn> {
     @Override
     public ChildSsn newAsset(){
         ChildSsn asset = new ChildSsn();
+        asset.setName("John SSN");
         asset.setSsn("1231312312");
         asset.setFirstName("John");
         asset.setLastName("Doe");
@@ -47,8 +48,8 @@ public class ChildSsnTest extends BaseAssetTest<ChildSsn> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":123,\"type\":\"CSS_ChildSSN_US\"},\"memberId\":12345,\"tenantId\":2345,\"active\":false," +
-                "\"ssn\":\"1231312312\",\"first_name\":\"John\",\"middle_name\":null,\"last_name\":\"Doe\"}";
+        return "{\"id\":{\"id\":123,\"type\":\"CSS_ChildSSN_US\"},\"name\":\"John SSN\",\"tenantId\":2345,\"active\":true," +
+                "\"ssn\":\"1231312312\",\"member_id\":12345,\"first_name\":\"John\",\"middle_name\":null,\"last_name\":\"Doe\"}";
     }
 
 }

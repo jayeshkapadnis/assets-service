@@ -19,6 +19,7 @@ public class USBankAccountTest extends BaseAssetTest<USBankAccount> {
     public USBankAccount newAsset() {
         USBankAccount asset = new USBankAccount();
         asset.setId(new AssetId(null, AssetType.US_BANK_ACCOUNT));
+        asset.setName("Salary Account");
         asset.setTenantId(123L);
         asset.setMemberId(12345L);
         asset.setActive(true);
@@ -61,8 +62,8 @@ public class USBankAccountTest extends BaseAssetTest<USBankAccount> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_BankAccount_US\"},\"memberId\":12345,\"tenantId\":123," +
-                "\"active\":true,\"type\":\"Savings\",\"iban\":null,\"account_num\":\"096123456769\"," +
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_BankAccount_US\"},\"name\":\"Salary Account\",\"tenantId\":123," +
+                "\"active\":true,\"type\":\"Savings\",\"iban\":null,\"member_id\":12345,\"account_num\":\"096123456769\"," +
                 "\"nick_name\":\"Personal Account\",\"routing_num\":\"CHASUS33XXX\",\"bank_code\":\"ICIC\"," +
                 "\"branch_code\":\"2900\",\"security_code\":null,\"sort_code\":\"ICICINBBCTS\"}";
     }

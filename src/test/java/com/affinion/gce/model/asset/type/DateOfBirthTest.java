@@ -17,7 +17,8 @@ public class DateOfBirthTest extends BaseAssetTest<DateOfBirth> {
 
     @Override
     public DateOfBirth newAsset(){
-        return new DateOfBirth(new AssetId(null, AssetType.DOB), 1234L, 2345L, true, "01022017");
+        return new DateOfBirth(new AssetId(null, AssetType.DOB), "My DOB",
+                1234L, 2345L, true, "01022017");
     }
 
     @Override
@@ -34,7 +35,7 @@ public class DateOfBirthTest extends BaseAssetTest<DateOfBirth> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_DOB\"},\"memberId\":1234,\"tenantId\":2345," +
-                "\"active\":true,\"dob\":\"01022017\"}";
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_DOB\"},\"name\":\"My DOB\"," +
+                "\"tenantId\":2345,\"active\":true,\"dob\":\"01022017\",\"member_id\":1234}";
     }
 }

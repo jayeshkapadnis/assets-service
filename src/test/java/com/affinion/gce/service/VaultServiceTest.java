@@ -123,7 +123,7 @@ public class VaultServiceTest {
 
     private AssetEntity newAsset(){
         return new AssetEntity(
-                new PhoneNumber(new AssetId(123L, AssetType.PHONE_NUMBER),
+                new PhoneNumber(new AssetId(123L, AssetType.PHONE_NUMBER), "Home Phone",
                         1234L, 123L, true, "1234567890"));
     }
 

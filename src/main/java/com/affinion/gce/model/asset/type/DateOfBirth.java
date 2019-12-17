@@ -26,8 +26,8 @@ public class DateOfBirth extends Asset {
         this.dob = entity.attributeValue(type().id());
     }
 
-    public DateOfBirth(AssetId id, Long memberId, Long tenantId, Boolean active, String dob) {
-        super(id, memberId, tenantId, active);
+    public DateOfBirth(AssetId id, String name, Long memberId, Long tenantId, Boolean active, String dob) {
+        super(id, name, memberId, tenantId, active);
         this.dob = dob;
     }
 

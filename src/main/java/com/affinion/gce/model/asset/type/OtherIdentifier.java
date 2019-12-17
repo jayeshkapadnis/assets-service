@@ -27,8 +27,8 @@ public class OtherIdentifier extends Asset {
         this.identifier = entity.attributeValue(type().id());
     }
 
-    public OtherIdentifier(AssetId id, Long memberId, Long tenantId, Boolean active, String identifier) {
-        super(id, memberId, tenantId, active);
+    public OtherIdentifier(AssetId id, String name, Long memberId, Long tenantId, Boolean active, String identifier) {
+        super(id, name, memberId, tenantId, active);
         this.identifier = identifier;
     }
 

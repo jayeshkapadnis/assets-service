@@ -16,7 +16,7 @@ public class KeyTagTest extends BaseAssetTest<KeyTag> {
 
     @Override
     public KeyTag newAsset() {
-        return new KeyTag(new AssetId(null, AssetType.KEY_TAG), 1234L,
+        return new KeyTag(new AssetId(null, AssetType.KEY_TAG), "MAC Number", 1234L,
                 2345L, true, "1234455");
     }
 
@@ -34,7 +34,7 @@ public class KeyTagTest extends BaseAssetTest<KeyTag> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_KeyTag\"},\"memberId\":1234," +
-                "\"tenantId\":2345,\"active\":true,\"serial_number\":\"1234455\"}";
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_KeyTag\"},\"name\":\"MAC Number\"," +
+                "\"tenantId\":2345,\"active\":true,\"member_id\":1234,\"serial_number\":\"1234455\"}";
     }
 }

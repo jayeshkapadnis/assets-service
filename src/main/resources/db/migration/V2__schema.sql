@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS assets(
     id bigserial NOT NULL CONSTRAINT asset_pkey PRIMARY KEY,
+    name varchar(100) NOT NULL,
     member_id bigint NOT NULL,
     tenant_id bigint NOT NULL,
     type varchar(50) NOT NULL,

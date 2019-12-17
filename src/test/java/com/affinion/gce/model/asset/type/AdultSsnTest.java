@@ -17,7 +17,7 @@ public class AdultSsnTest extends BaseAssetTest<AdultSsn> {
 
     @Override
     public AdultSsn newAsset(){
-        return new AdultSsn(new AssetId(1234L, AssetType.US_ADULT_SSN), 1234L,
+        return new AdultSsn(new AssetId(1234L, AssetType.US_ADULT_SSN), "My SSN", 1234L,
                 213L, true, "213123123");
     }
 
@@ -35,8 +35,8 @@ public class AdultSsnTest extends BaseAssetTest<AdultSsn> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":1234,\"type\":\"CSS_AdultSSN_US\"},\"memberId\":1234,\"tenantId\":213," +
-                "\"active\":true,\"ssn\":\"213123123\"}";
+        return "{\"id\":{\"id\":1234,\"type\":\"CSS_AdultSSN_US\"},\"name\":\"My SSN\"," +
+                "\"tenantId\":213,\"active\":true,\"ssn\":\"213123123\",\"member_id\":1234}";
     }
 
 }

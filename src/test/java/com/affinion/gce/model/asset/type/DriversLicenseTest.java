@@ -17,7 +17,7 @@ public class DriversLicenseTest extends BaseAssetTest<DriversLicense> {
 
     @Override
     public DriversLicense newAsset() {
-        return new DriversLicense(new AssetId(123L, AssetType.DRIVERS_LICENSE), 12345L,
+        return new DriversLicense(new AssetId(123L, AssetType.DRIVERS_LICENSE), "My License No.", 12345L,
                 123L, true, "567890");
     }
 
@@ -35,7 +35,7 @@ public class DriversLicenseTest extends BaseAssetTest<DriversLicense> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":123,\"type\":\"CSS_DriversLicense\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"license_number\":\"567890\"}";
+        return "{\"id\":{\"id\":123,\"type\":\"CSS_DriversLicense\"},\"name\":\"My License No.\"," +
+                "\"tenantId\":123,\"active\":true,\"member_id\":12345,\"license_number\":\"567890\"}";
     }
 }

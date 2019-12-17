@@ -57,8 +57,8 @@ public class PaymentCardTest extends BaseAssetTest<PaymentCard> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_PaymentCard\"},\"memberId\":12345,\"tenantId\":123," +
-                "\"active\":true,\"card_number\":\"213434567890\",\"card_name\":\"Member Name\"," +
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_PaymentCard\"},\"tenantId\":123,\"active\":true," +
+                "\"card_name\":\"Member Name\",\"member_id\":12345,\"card_number\":\"213434567890\"," +
                 "\"nick_name\":\"Personal Card\",\"card_issuer\":\"ICICI BANK\",\"card_scheme\":null," +
                 "\"card_type\":\"Platinum\",\"exp_date_mmyyyy\":\"022020\"}";
     }

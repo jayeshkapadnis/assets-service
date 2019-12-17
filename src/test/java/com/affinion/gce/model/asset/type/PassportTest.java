@@ -17,7 +17,7 @@ public class PassportTest extends BaseAssetTest<Passport> {
 
     @Override
     public Passport newAsset() {
-        return new Passport(new AssetId(null, AssetType.PASSPORT), 12345L,
+        return new Passport(new AssetId(null, AssetType.PASSPORT), "My Passport", 12345L,
                 123L, true, "L267590");
     }
 
@@ -35,7 +35,7 @@ public class PassportTest extends BaseAssetTest<Passport> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_Passport\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"passport_number\":\"L267590\"}";
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_Passport\"},\"name\":\"My Passport\"," +
+                "\"tenantId\":123,\"active\":true,\"member_id\":12345,\"passport_number\":\"L267590\"}";
     }
 }

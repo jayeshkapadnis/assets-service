@@ -36,6 +36,8 @@ public class AssetEntity implements Serializable {
     @Column(name = "is_active")
     private boolean active;
 
+    private String name;
+
     @ElementCollection(targetClass = AssetAttribute.class)
     @CollectionTable(name = "asset_attributes",
             joinColumns = @JoinColumn(name = "asset_id"))
@@ -56,6 +58,7 @@ public class AssetEntity implements Serializable {
 
     public AssetEntity(Asset asset) {
         this.id = asset.getId().getId();
+        this.name = asset.getName();
         this.memberId = asset.getMemberId();
         this.tenantId = asset.getTenantId();
         this.type = asset.type();

@@ -104,7 +104,7 @@ public class PhoneNumberValidatorTest {
     private PhoneNumber mockAsset(String number){
         return new PhoneNumber(
                 new AssetId(null, AssetType.PHONE_NUMBER),
-                1234L, 4321L, true, number);
+                "Home Phone", 1234L, 4321L, true, number);
     }
 
 }

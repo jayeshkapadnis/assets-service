@@ -25,8 +25,8 @@ public class AdultSsn extends Asset {
         this.ssn = entity.attributeValue(type().id());
     }
 
-    public AdultSsn(AssetId id, Long memberId, Long tenantId, Boolean active, String ssn) {
-        super(id, memberId, tenantId, active);
+    public AdultSsn(AssetId id, String name, Long memberId, Long tenantId, Boolean active, String ssn) {
+        super(id, name, memberId, tenantId, active);
         this.ssn = ssn;
     }
 

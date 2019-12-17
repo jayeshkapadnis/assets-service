@@ -17,13 +17,8 @@ public class MobileNumberTest extends BaseAssetTest<PhoneNumber> {
 
     @Override
     public PhoneNumber newAsset() {
-        PhoneNumber asset = new PhoneNumber();
-        asset.setId(new AssetId(null, AssetType.MOBILE_NUMBER));
-        asset.setTenantId(123L);
-        asset.setMemberId(12345L);
-        asset.setActive(true);
-        asset.setNumber("9856678905");
-        return asset;
+        return new PhoneNumber(new AssetId(null, AssetType.MOBILE_NUMBER), "My Number", 123L,
+                12345L, true, "9856678905");
     }
 
     @Override
@@ -40,7 +35,7 @@ public class MobileNumberTest extends BaseAssetTest<PhoneNumber> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_PhoneNumberMobile\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"phone\":\"9856678905\"}";
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_PhoneNumberMobile\"},\"name\":\"My Number\"," +
+                "\"tenantId\":12345,\"active\":true,\"member_id\":123,\"phone\":\"9856678905\"}";
     }
 }

@@ -4,6 +4,7 @@ import com.affinion.gce.jackson.AssetTypeResolver;
 import com.affinion.gce.jpa.entity.AssetAttribute;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.Hashable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import lombok.AllArgsConstructor;
@@ -25,15 +26,18 @@ import java.util.stream.Stream;
 @JsonTypeResolver(AssetTypeResolver.class)
 public abstract class Asset implements Hashable {
     private AssetId id;
+    private String name;
+    @JsonProperty("member_id")
     private Long memberId;
     private Long tenantId;
-    private Boolean active = false;
+    private Boolean active = Boolean.TRUE;
 
     public Asset(AssetEntity entity) {
         this.id = new AssetId(entity.getId(), entity.getType());
         this.tenantId = entity.getTenantId();
         this.memberId = entity.getMemberId();
         this.active = entity.isActive();
+        this.name = entity.getName();
     }
 
     public AssetType type() {

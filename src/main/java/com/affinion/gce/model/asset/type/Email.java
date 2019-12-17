@@ -26,8 +26,8 @@ public class Email extends Asset {
         this.email = entity.attributeValue(type().id());
     }
 
-    public Email(AssetId id, Long memberId, Long tenantId, Boolean active, String email) {
-        super(id, memberId, tenantId, active);
+    public Email(AssetId id, String name, Long memberId, Long tenantId, Boolean active, String email) {
+        super(id, name, memberId, tenantId, active);
         this.email = email;
     }
 

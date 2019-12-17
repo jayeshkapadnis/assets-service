@@ -20,8 +20,6 @@ import java.util.stream.Stream;
 public class PaymentCard extends Asset {
     @JsonProperty("card_number")
     private String number;
-    @JsonProperty("card_name")
-    private String name;
     @JsonProperty("nick_name")
     private String nickName;
     @JsonProperty("card_issuer")
@@ -36,12 +34,24 @@ public class PaymentCard extends Asset {
     public PaymentCard(AssetEntity entity) {
         super(entity);
         this.number = entity.attributeValue("credit_card");
-        this.name = entity.attributeValue("card_name");
+        this.setName(entity.attributeValue("card_name"));
         this.nickName = entity.attributeValue("nick_name");
         this.issuer = entity.attributeValue("card_issuer");
         this.scheme = entity.attributeValue("card_scheme");
         this.type = entity.attributeValue("card_type");
         this.expiry = entity.attributeValue("exp_date_mmyyyy");
+    }
+
+    @Override
+    @JsonProperty("card_name")
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    @JsonProperty("card_name")
+    public void setName(String name) {
+        super.setName(name);
     }
 
     @Override

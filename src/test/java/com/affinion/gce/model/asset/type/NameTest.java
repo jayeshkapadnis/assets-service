@@ -48,8 +48,8 @@ public class NameTest extends BaseAssetTest<Name> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_MemberName\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"first_name\":\"John\"," +
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_MemberName\"},\"name\":null," +
+                "\"tenantId\":123,\"active\":true,\"member_id\":12345,\"first_name\":\"John\"," +
                 "\"middle_name\":\"Peter\",\"last_name\":\"Doe\"}";
     }
 }

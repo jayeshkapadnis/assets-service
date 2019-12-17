@@ -76,7 +76,7 @@ public class AssetServiceTest {
     }
 
     private Asset newAsset(){
-        return new PhoneNumber(new AssetId(null, AssetType.PHONE_NUMBER), 1234L,
+        return new PhoneNumber(new AssetId(null, AssetType.PHONE_NUMBER), "Home Phone", 1234L,
                 21L, true, "9876543210");
     }
 

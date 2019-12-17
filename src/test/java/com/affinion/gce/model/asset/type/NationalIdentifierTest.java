@@ -17,7 +17,7 @@ public class NationalIdentifierTest extends BaseAssetTest<NationalIdentifier> {
 
     @Override
     public NationalIdentifier newAsset() {
-        return new NationalIdentifier(new AssetId(null, AssetType.NATIONAL_ID), 12345L,
+        return new NationalIdentifier(new AssetId(null, AssetType.NATIONAL_ID), "PAN Card", 12345L,
                 123L, true, "A67552900099");
     }
 
@@ -35,7 +35,7 @@ public class NationalIdentifierTest extends BaseAssetTest<NationalIdentifier> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_NationalId\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"nationalId\":\"A67552900099\"}";
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_NationalId\"},\"name\":\"PAN Card\"," +
+                "\"tenantId\":123,\"active\":true,\"member_id\":12345,\"nationalId\":\"A67552900099\"}";
     }
 }

@@ -19,6 +19,7 @@ public class PostalAddressTest extends BaseAssetTest<PostalAddress> {
     public PostalAddress newAsset() {
         PostalAddress asset = new PostalAddress();
         asset.setId(new AssetId(null, AssetType.POSTAL_ADDRESS));
+        asset.setName("Home Address");
         asset.setTenantId(123L);
         asset.setMemberId(12345L);
         asset.setActive(true);
@@ -60,9 +61,9 @@ public class PostalAddressTest extends BaseAssetTest<PostalAddress> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":null,\"type\":\"CSS_PostalAddress\"},\"memberId\":12345,\"tenantId\":123," +
-                "\"active\":true,\"city\":\"Wichita\",\"state\":\"Kansas\",\"country\":\"United States\"," +
-                "\"county\":null,\"address_line1\":\"E-103, Society\",\"address_line2\":\"Near Some landmark\"," +
+        return "{\"id\":{\"id\":null,\"type\":\"CSS_PostalAddress\"},\"name\":\"Home Address\",\"tenantId\":123," +
+                "\"active\":true,\"city\":\"Wichita\",\"state\":\"Kansas\",\"country\":\"United States\",\"county\":null," +
+                "\"member_id\":12345,\"address_line1\":\"E-103, Society\",\"address_line2\":\"Near Some landmark\"," +
                 "\"address_line3\":null,\"country_code\":\"USA\",\"postal_code\":\"67502\"}";
     }
 }

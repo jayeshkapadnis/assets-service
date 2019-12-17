@@ -17,7 +17,7 @@ public class EmailTest extends BaseAssetTest<Email> {
 
     @Override
     public Email newAsset() {
-        return new Email(new AssetId(123L, AssetType.EMAIL), 12345L,
+        return new Email(new AssetId(123L, AssetType.EMAIL), "Office email", 12345L,
                 123L, true, "some.other@host.com");
     }
 
@@ -35,7 +35,7 @@ public class EmailTest extends BaseAssetTest<Email> {
 
     @Override
     public String serialized() {
-        return "{\"id\":{\"id\":123,\"type\":\"CSS_EmailAddress\"},\"memberId\":12345," +
-                "\"tenantId\":123,\"active\":true,\"email\":\"some.other@host.com\"}";
+        return "{\"id\":{\"id\":123,\"type\":\"CSS_EmailAddress\"},\"name\":\"Office email\"," +
+                "\"tenantId\":123,\"active\":true,\"email\":\"some.other@host.com\",\"member_id\":12345}";
     }
 }
