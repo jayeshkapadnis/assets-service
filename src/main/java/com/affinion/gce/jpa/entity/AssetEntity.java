@@ -2,6 +2,7 @@ package com.affinion.gce.jpa.entity;
 
 import com.affinion.gce.model.asset.Asset;
 import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,9 @@ public class AssetEntity implements Serializable {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     @ElementCollection(targetClass = AssetAttribute.class)
     @CollectionTable(name = "asset_attributes",
             joinColumns = @JoinColumn(name = "asset_id"))
@@ -58,6 +62,7 @@ public class AssetEntity implements Serializable {
 
     public AssetEntity(Asset asset) {
         this.id = asset.getId().getId();
+        this.category = asset.getId().getCategory();
         this.name = asset.getName();
         this.memberId = asset.getMemberId();
         this.tenantId = asset.getTenantId();

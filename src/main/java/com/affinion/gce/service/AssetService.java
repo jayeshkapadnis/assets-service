@@ -5,6 +5,8 @@ import com.affinion.gce.exception.CyberException;
 import com.affinion.gce.exception.ErrorCode;
 import com.affinion.gce.jpa.entity.AssetEntity;
 import com.affinion.gce.model.asset.Asset;
+import com.affinion.gce.model.asset.AssetType;
+import com.affinion.gce.model.asset.Category;
 import com.affinion.gce.model.member.IdType;
 import com.affinion.gce.repository.AssetRepository;
 import com.affinion.gce.validator.AssetDataValidator;
@@ -12,9 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -82,6 +88,16 @@ public class AssetService {
                     }
                 })
                 .collect(Collectors.toList());
+    }
+
+    public void getAssetSummaryBy(Long memberId) {
+        Map<Category, Map<AssetType, List<AssetEntity>>> collect = repository.findAllByMemberId(memberId)
+                .stream()
+                .collect(Collectors.groupingBy(AssetEntity::getCategory, Collectors.toList()))
+                .entrySet().stream()
+                .map(e -> Tuples.of(e.getKey(), e.getValue().stream()
+                        .collect(Collectors.groupingBy(AssetEntity::getType, Collectors.toList())))
+                ).collect(Collectors.toMap(Tuple2::getT1, Tuple2::getT2));
     }
 
     protected Mono<? extends AssetDataValidator> newValidator(Asset asset, String brmsToken) {

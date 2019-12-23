@@ -57,6 +57,14 @@ public class AssetController {
                                 .body(BodyInserters.fromValue(a))));
     }
 
+    public void getAssetSummaryByMemberId(@RequestAttribute String clientBrmsKey,
+                                          @PathVariable Long memberId){
+        assetService.getAssetSummaryBy(memberId);
+        /*withTenantId(clientBrmsKey, (key) -> {
+            assetService.getAssetSummaryBy(memberId)
+        });*/
+    }
+
     private Mono<ServerResponse> withTenantId(String clientBrmsKey, Function<String, Mono<ServerResponse>> f) {
         if (StringUtils.isEmpty(clientBrmsKey)) {
             return Mono.error(new CyberException("Invalid Visibility Scope id", ErrorCode.PERMISSION_DENIED));

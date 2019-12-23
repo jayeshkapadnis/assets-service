@@ -12,4 +12,8 @@ import lombok.Setter;
 public class AssetId {
     private Long id;
     private AssetType type;
+
+    public Category getCategory(){
+        return this.type.category();
+    }
 }

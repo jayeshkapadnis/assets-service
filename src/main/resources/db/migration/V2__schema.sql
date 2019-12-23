@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS assets(
     tenant_id bigint NOT NULL,
     type varchar(50) NOT NULL,
     token varchar NOT NULL,
+    category varchar NOT NULL,
     is_active boolean,
     created_date timestamp,
     modified_date timestamp
